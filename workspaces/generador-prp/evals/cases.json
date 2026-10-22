@@ -764,6 +764,17 @@
         "weight": 1.0,
         "critical": true,
         "description": "never_do: sin texto de plantilla sin resolver"
+      },
+      {
+        "type": "tool_input_not_contains",
+        "value": {
+          "tool": "guardar_prp",
+          "field": "contenido",
+          "value": "Pack 10* | 780"
+        },
+        "weight": 1.0,
+        "critical": false,
+        "description": "Prestashop usa tarifa T-Points Open Source (10=800 €), no SaaS (780 €)"
       }
     ],
     "rubric": "Caso completo. Prestashop B2C en todas las secciones. Debe recoger España y Francia, Bizum, newsletters, catálogo cargado por el cliente, consultoría de 3 semanas. La duración 4-5 meses y arranque 3-4 semanas aparecen como 'estimada que doy yo' del comercial: valora que los trate con cautela o los marque para confirmar. Sin casos de éxito inventados ni KPI. Cada reto del cliente (web Wix que no vende, ventas solo en ferias) tiene correspondencia en 'Cómo lo abordamos' y Alcance.",

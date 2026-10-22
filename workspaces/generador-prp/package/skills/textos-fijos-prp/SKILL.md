@@ -9,7 +9,7 @@ Estos bloques se copian **literalmente** en el PRP, sustituyendo `[CLIENTE]` por
 
 Lo que está entre `⟨ ⟩` es VARIABLE y sale de las fuentes o del comercial; si no consta, `[FALTA: …]`.
 
-Fuente: PRP real de octubre 2026 (variante completa sin Consultoría: .01 Cronología · .02 El Método · .03/.04 Proyecto · .05 Software · .06 Soporte · .07 Presupuesto · .08 Miscelánea). En las variantes con Consultoría, el bloque .03 Consultoría va entre El Método y Proyecto, y la numeración se desplaza.
+Fuente: 5 PRP reales de 2025-2026 (Shopify sin Consultoría; PrestaShop, LogiCommerce y WooCommerce con Consultoría; Web corporativa WordPress). El primer bloque es la variante Shopify sin Consultoría: .01 Cronología · .02 El Método · .03/.04 Proyecto · .05 Software · .06 Soporte · .07 Presupuesto · .08 Miscelánea). En las variantes con Consultoría, el bloque .03 Consultoría va entre El Método y Proyecto, y la numeración se desplaza.
 
 ---
 
@@ -781,3 +781,308 @@ Madrid
 +34 911095899
 Calle de José Abascal, 56 · 28003
 ```
+
+---
+
+# Bloques por VARIANTE y por PLATAFORMA
+
+Lo anterior es la variante Shopify sin Consultoría. Estos bloques completan las demás variantes. Elige según la plataforma y según si hay Consultoría.
+
+## .03 Consultoría (variante con Consultoría: Prestashop, LogiCommerce, WooCommerce, Web)
+
+Va entre `.02 El Método` y `.04 Proyecto`. Dos diapositivas. En la variante Web, «Proyecto eCommerce» → «Proyecto Web», «mercado eCommerce» → «entorno online», y en el Análisis técnico desaparecen B2B, tarifas, logística, marketplaces y POS.
+
+```
+.03 Consultoría
+Definición del Ámbito y Alcance del Proyecto eCommerce
+La situación actual del mercado eCommerce es altamente compleja, lo que ha incrementado significativamente la dificultad de llevar a cabo proyectos de desarrollo o migración de eCommerce.
+Para abordar este proyecto con requisitos varios, tales como funcionalidades avanzadas B2B, configuraciones específicas, personalización avanzada de la experiencia de usuario, etc., en trilogi realizamos un primer dimensionamiento del ámbito y alcance del proyecto, para poder proporcionar un precio inicial en un rango aproximado y que posteriormente se ajusta.
+Para determinar el alcance final, se deberá completar la fase inicial de Consultoría para la definición del Ámbito y Alcance, la cual tendrá un coste específico, y al finalizar se entregará un documento detallado que incluirá el alcance completo, las tareas a realizar, el tiempo de implantación y el precio definitivo del proyecto.
+Esta etapa es fundamental para garantizar un desarrollo efectivo y alineado con los tus objetivos, estableciendo una base sólida y claramente definida que minimiza riesgos y asegura que todos los participantes del proyecto tengan una visión compartida de los objetivos, tareas y tiempos de implantación. 
+Durante esta fase de Consultoría, seguimos un enfoque estructurado que se divide en dos partes principales (Análisis y Definición) donde analizamos:
+```
+
+```
+.03 Consultoría
+Definición del Ámbito y Alcance del Proyecto eCommerce
+1. Análisis Funcional
+Revisión de la Definición de Propuesta: Revisamos la propuesta inicial para asegurarnos de que todos los requisitos estén claramente definidos y alineados con los objetivos del cliente.
+Alcance de Proyecto: Determinamos el ámbito general del proyecto, revisando y estableciendo los retos, expectativas a cumplir. 
+Análisis técnico: Se realiza un análisis exhaustivo de las funcionalidades necesarias para el eCommerce, en el ámbito B2B, así como la integración de datos con sistemas externos si los hubiera. Análisis de la configuración de precios específicos, tarifas, y descuentos, la personalización avanzada de la experiencia de usuario, y la integración con múltiples sistemas de logística y métodos de pago que incluyen flujos de negocio especiales. Además, este análisis incluye la sincronización con plataformas de terceros, tales como marketplaces y plataformas de gestión de inventario, así como la conexión con sistemas offline como tiendas físicas y puntos de venta (POS). 
+Diseño gráfico: Realizamos un análisis para recopilar y documentar todos los requisitos de diseño y funcionalidades que se requieren, des de personalizadores hasta configuradores avanzados.
+2. Definición Funcional
+Definición Base: Establecemos las bases funcionales del proyecto, detallando los componentes esenciales que forman la estructura del eCommerce.
+Definición de Funcionalidades Estándares: Definimos y detallamos técnicamente las funcionalidades que deben ser implementadas, asegurando una operación fluida y una experiencia de usuario coherente.
+Definición de Desarrollos a Medida: Identificamos y documentamos las personalizaciones y desarrollos a medida que son necesarios para adaptarse a los requisitos específicos.
+Definición de Datos: Definimos el tratamiento de los datos que incluye la importación, migración y conexión con sistemas externos, como ERP o CRM, para asegurar la integridad y consistencia de la información.
+Conexión con Plug-ins: Definimos y documentamos las conexiones necesarias con plug-ins, asegurando que la plataforma eCommerce pueda integrarse correctamente, tales como herramientas de marketing, transportistas, pasarelas de pago y otros sistemas complementarios.
+```
+
+La enumeración «tales como funcionalidades avanzadas B2B, configuraciones específicas…» es VARIABLE: adáptala al canal y a las integraciones del cliente (⟨B2C | B2B⟩, ⟨ERP, CRM, PIM con nombre⟩). Quita «tiendas físicas y puntos de venta (POS)» si no aplica.
+
+Variante Web:
+
+```
+.03 Consultoría
+Definición del Ámbito y Alcance del Proyecto Web
+La situación actual del entorno online es altamente compleja, lo que ha incrementado significativamente la dificultad de llevar a cabo proyectos de desarrollo o migración Web.
+Para abordar este proyecto con requisitos varios, tales como, personalización avanzada de la experiencia de usuario, diseño, etc., en trilogi realizamos un primer dimensionamiento del ámbito y alcance del proyecto, para poder proporcionar un precio inicial en un rango aproximado y que posteriormente se ajusta.
+Para determinar el alcance final, se deberá completar la fase inicial de Consultoría para la definición del Ámbito y Alcance, la cual tendrá un coste específico, y al finalizar se entregará un documento detallado que incluirá el alcance completo, las tareas a realizar, el tiempo de implantación y el precio definitivo del proyecto.
+Esta etapa es fundamental para garantizar un desarrollo efectivo y alineado con los tus objetivos, estableciendo una base sólida y claramente definida que minimiza riesgos y asegura que todos los participantes del proyecto tengan una visión compartida de los objetivos, tareas y tiempos de implantación. 
+Durante esta fase de Consultoría, seguimos un enfoque estructurado que se divide en dos partes principales (Análisis y Definición) donde analizamos:
+```
+
+```
+.03 Consultoría
+Definición del Ámbito y Alcance del Proyecto Web
+1. Análisis Funcional
+Revisión de la Definición de Propuesta: Revisamos la propuesta inicial para asegurarnos de que todos los requisitos estén claramente definidos y alineados con los objetivos del cliente.
+Alcance de Proyecto: Determinamos el ámbito general del proyecto, revisando y estableciendo los retos, expectativas a cumplir. 
+Análisis técnico: Se realiza un análisis exhaustivo de las funcionalidades necesarias para la web, en su ámbito de negocio. 
+Diseño gráfico: Realizamos un análisis para recopilar y documentar todos los requisitos de diseño y funcionalidades que se requieren, des de personalizadores hasta configuradores avanzados.
+2. Definición Funcional
+Definición Base: Establecemos las bases funcionales del proyecto, detallando los componentes esenciales que forman la estructura de la web.
+Definición de Funcionalidades Estándares: Definimos y detallamos técnicamente las funcionalidades que deben ser implementadas, asegurando una operación fluida y una experiencia de usuario coherente.
+Definición de Desarrollos a Medida: Identificamos y documentamos las personalizaciones y desarrollos a medida que son necesarios para adaptarse a los requisitos específicos.
+Definición de Datos: Definimos el tratamiento de los datos que incluye la importación, migración y conexión con sistemas externos, como ERP o CRM, para asegurar la integridad y consistencia de la información.
+Conexión con Plug-ins: Definimos y documentamos las conexiones necesarias con plug-ins, asegurando que la Web pueda integrarse correctamente, tales como herramientas de marketing u otros servicios complementarios.
+```
+
+## .04 Ámbito del proyecto (variante con Consultoría y variante Web)
+
+Con Consultoría, la primera viñeta es «Se realizará un análisis y definición para una toma de requisitos exhaustiva…». En Web, la marca va sin sufijo B2C/B2B y la formación quita pedidos, ofertas y promociones:
+
+```
+.04 Proyecto
+Ámbito del proyecto
+trilogi enfocará el proyecto para qué [CLIENTE] pueda alcanzar sus objetivos:
+Se realizará un análisis y definición para una toma de requisitos exhaustiva. En esta fase inicial, el ámbito y alcance pueden cambiar, pero será siempre acordado con [CLIENTE].
+Confirmación de tareas a realizar por ambas partes ([CLIENTE] / trilogi) para concretar timming y Go-Live.
+Asignación de un equipo de diferentes perfiles (Diseñador, Consultor, Integrador, Programador Web / Maquetador, Tester) liderados por un Jefe de proyecto (Project Manager) que coordinará con [CLIENTE] todo el proyecto.
+Se diseñará un entorno que nos permita trabajar la imagen y reconocimiento de marca.
+Se incluye la formación de todos los módulos que incluye Wordpress, para que el equipo de [CLIENTE] pueda gestionar el contenido online (páginas de información, productos, landings pages, etc.) de forma autónoma.
+Testing final y proceso de apertura.
+Incluye un mantenimiento post Go-Live para consultas y un servicio de incidencias de criticidad “Muy Alta” en horario 24x7.
+```
+
+## .05 Software y hosting por plataforma
+
+### PrestaShop
+
+```
+.05 Software
+PrestaShop
+Somos agencia PrestaShop Partner Expert *** con expertos técnicos certificados en múltiples disciplinas. 
+https://www.prestashop.com/
+Confía en un partner PrestaShop para el soporte y mantenimiento
+```
+
+```
+.05 Software
+La contratación del hosting es responsabilidad del cliente.
+[CLIENTE] deberá contratar un servicio en el proveedor de hosting que considere (si no dispone de uno actualmente) y enviarnos las credenciales para la instalación.
+PrestaShop ofrece directamente servicio de Hosting a sus clientes, en caso de estar interesados, trilogi puede gestionar para que el cliente reciba una valoración económica de su coste.
+
+Más información Prestashop Hosting
+```
+
+### LogiCommerce
+
+```
+.05 Software
+LogiCommerce es la plataforma de comercio electrónico Headless que conecta una experiencia completa del [CLIENTE], requisitos de marketing y canales de venta con una plataforma unificada B2C y B2B completa.
+Lo mejor del comercio electrónico Headless y tradicional en una sola plataforma.
+www.logicommerce.com
+LogiCommerce se adapta a tus necesidades comerciales y de marketing
+```
+
+```
+.05 Software - Expertos en LogiCommerce
+PARTNERSHIPS
+trilogi es Partner oficial de LogiCommerce en las 3 áreas de Experts de las que dispone, y de personal certificado en las 3 especializaciones técnicas. 
+
+Los Premier Solution Experts son agencias eCommerce líderes en sus mercados con gran experiencia en la instalación y el mantenimiento de LogiCommerce. 
+
+Estas capacitaciones específicas sobre la tecnología LogiCommerce nos permite: 
+Potenciar la confianza de tus [CLIENTE]
+Ejecutar proyectos con alta eficiencia
+Agregar valor a los servicios
+Resolver situaciones complejas
+
+
+https://www.logicommerce.com/es/partner-trilogi/
+CERTIFICACIONES
+```
+
+### WordPress (web corporativa)
+
+```
+.05 Software
+WordPress Somos agencia experta en la instalación, desarrollo y mantenimiento WordPress. 
+https://www.wordpress.org
+Confía en un agencia experta en Wordpress para el soporte y mantenimiento
+```
+
+```
+.06 Hosting
+[CLIENTE] deberá contratar una cuenta de Hosting y enviar a trilogi las credenciales para la instalación. 
+En caso de no saber que proveedor de Hosting escoger, trilogi puede aconsejar donde hospedar la web.
+El proyecto no contempla updates, upgrades o cambios posteriores (incluyendo incidencias) sobre el hosting.
+Consejos y requisitos básicos
+```
+
+### WordPress / WooCommerce
+
+```
+.05 Software
+WordPress / Woocommerce
+Somos agencia experta en la instalación, desarrollo y mantenimiento WordPress y su extensión Woocommerce. 
+https://www.wordpress.org 
+https://www.woocommerce.com
+Confía en un agencia experta en Woocommerce para el soporte y mantenimiento
+```
+
+```
+.06 Hosting
+[CLIENTE] deberá contratar una cuenta de Hosting y enviar a trilogi las credenciales para la instalación. 
+En caso de no saber que proveedor de Hosting escoger, trilogi puede aconsejar donde hospedar el eCommerce.
+El proyecto no contempla updates, upgrades o cambios posteriores (incluyendo incidencias) sobre el hosting.
+Consejos y requisitos básicos
+```
+
+### Shopify
+Ver «.05 Software (variante Shopify)» y «.06 Costes Shopify» más arriba.
+
+## .06 Soporte: SaaS vs Open Source
+
+- **SaaS** (Shopify, LogiCommerce): «Planes de Servicio de Mantenimiento SaaS», «Packs T-Points SaaS» y los precios de T-Points de arriba (5=410 €, 10=780 €, 25=1850 €, 50=3500 €, 100=6700 €, 250=16000 €).
+- **Open Source** (PrestaShop, WordPress, WooCommerce): mismos planes SILVER/GOLD/PLATINUM a 90/150/250 € mensual, pero el título es «Planes de Servicio de Mantenimiento Open Source» y los T-Points tienen **otra tarifa**:
+
+```
+.06 Soporte
+Planes de Servicio de Mantenimiento Open Source
+El mantenimiento técnico de una plataforma Open Source es fundamental para garantizar su correcto funcionamiento, seguridad, y rendimiento. En la siguiente table desglosamos los aspectos técnicos que trilogi ofrece a través de sus distintos planes:
+ |  | SILVER |  | GOLD |  | PLATINUM
+Tipología eCommerce |  | B2C o B2B |  | B2C y/o B2B |  | B2C y/o B2B
+Soporte
+Lunes a viernes / 8 a 17h (CET) |  | Incluido |  | Incluido |  | Incluido
+Monitorización uptime 24x7
+Problemas de criticidad “Muy Alta” |  | Incluido |  | Incluido |  | Incluido
+Gestión de Tickets
+Acceso 24x7 herramienta ticketing |  | Ilimitado |  | Ilimitado |  | Ilimitado
+Soporte telefónico
+Lunes a viernes / 8 a 17h (CET) |  | - |  | Incluido |  | Incluido
+Tickets de soporte / consultas |  | 4 |  | 6 |  | 10
+Descuentos en Packs T-PointsNo acumulables con otras promociones |  | - |  | 5% |  | 10%
+ |  | 90 € mensual |  | 150 € mensual |  | 250 € mensual
+```
+
+Packs T-Points Open Source (precios):
+
+| T-Points | Importe |
+|---|---|
+| Pack 5* | 420 € |
+| Pack 10* | 800 € |
+| Pack 25 | 1900 € |
+| Pack 50 | 3600 € |
+| Pack 100 | 6930 € |
+| Pack 250 | 16750 € |
+
+\* Solo para renovaciones de packs. Importes sin IVA.
+
+Catálogo de T-Points Open Source (añade Diagnosis, Actualizaciones, Solución de bugs, Soporte de seguridad y Parcheo de vulnerabilidades a Mantenimiento Técnico):
+
+```
+.06 Soporte
+Packs T-Points Open Source
+T-Points es un sistema flexible de contratación de perfiles multidisciplinar para desarrollar distintas tareas sobre tu eCommerce, como integrar nuevas funcionalidades, configuraciones varias, retoques gráficos y acciones puntuales de marketing entre otras.
+Mantenimiento Técnico
+Diagnosis: Analizar los problemas técnicos para identificar los errores y así restaurar el funcionamiento normal del eCommerce.
+Actualizaciones: Mantener la tienda actualizada con las últimas versiones de PrestaShop para garantizar seguridad y funcionalidades.
+Solución de bugs: Resolución de problemas técnicos, errores en el sitio o conflictos con módulos y errores en el Frontend y Backend.
+Soporte de seguridad: Implementación de medidas como certificados SSL, backups regulares y protección contra ataques.
+Parcheo de vulnerabilidades: Implementación de soluciones para proteger la tienda de vulnerabilidades conocidas.
+Integración con terceros: Conexión con sistemas ERP, CRM, pasarelas de pago, marketplaces o plataformas de logística.
+Velocidad de carga: Ajustes técnicos como optimización de imágenes, configuración de caché, CDN, y mejora del hosting.
+Diseño gráfico
+Diseños: Creación y adaptación de temas adaptados a tu marca.
+Mejoras de UX/UI: Orientado a la experiencia del usuario para aumentar conversiones.
+Gestión de Contenidos
+Optimización del catálogo: Configuración y gestión de productos, categorías y atributos.
+Actualización de contenidos: Edición de textos, imágenes, banners y promociones en el eCommerce.
+SEO y Marketing Digital
+SEO técnico: Optimización de URL, etiquetas meta, velocidad de carga, y schema markup.
+Estrategias de conversión: Configuración de carritos abandonados, upselling y cross-selling.
+Campañas publicitarias: Gestión de Google Ads, Facebook Ads y retargeting.
+Formación y Consultoría
+Capacitación: Formación para la gestión de su eCommerce, desde la subida de productos hasta configuraciones de descuentos.
+Consultoría estratégica: Recomendaciones sobre estrategias de eCommerce y tendencias del mercado.
+```
+
+En la variante Web, la intro de Soporte dice «tu web» en vez de «tu eCommerce» y «velocidad de la web».
+
+## .04 Diseño en LogiCommerce: dos opciones
+
+LogiCommerce ofrece dos opciones de diseño que generan DOS presupuestos (OPCIÓN 1 y OPCIÓN 2) con dos importes de desarrollo distintos:
+
+```
+.04 Proyecto
+OPCIÓN 1 – Diseño por Templates
+Disponemos de varias templates de diseño avanzado que se adaptan a las necesidades de tu negocio online. Estas plantillas incluyen una adaptación responsive de los contenidos ajustada a sus características para una mejor experiencia en la navegación tanto mobile como desktop. Incluye además un completo manual de uso para facilitar la gestión por vuestra parte.
+Personalizaremos la que más os guste según la imagen corporativa de tu empresa (colores, tipografía, etc.) para que tengáis un resultado único y adaptado a vuestra marca. 
+Utilizaremos las mejores prácticas del sector para conseguir una tienda moderna, con un excelente diseño y una gran usabilidad. 
+Se realizará sobre la última tecnología de programación, que permite trabajar con muchos más efectos y estilos mejorados, ofreciendo unos resultados de alto nivel, maximizando la experiencia de usuario y orientado 100% a la conversión para incrementar las ventas.
+Juntos trasladamos tu propuesta de valor diferencial a través de la mejor experiencia de usuario
+```
+
+```
+.04 Proyecto - Customer-Driven Design
+OPCIÓN 2 – Diseño gráfico Modular
+Diseño modular
+Cada proyecto es único, pero gracias a nuestro sistema 100% escalable, te ofrecemos el diseño que necesitas:
+Un diseño realizado con nuestro sistema de módulos predefinidos 100% responsive.
+Diseño de la página Home en prototipo de alta fidelidad.
+Definición de estructuras seleccionadas en prototipo wireframe para las páginas de Categoría y Producto.
+Diseño de 3 páginas de contenido adaptado.
+Además de:
+Adaptación de los contenidos para cada tipo de dispositivo.
+Optimización y foco en el diseño de las principales páginas del eCommerce (home, vista de categoría y ficha de producto).
+Aplicación de la línea gráfica en toda la unidad de la tienda (checkout estándar base, zona de usuario, formularios de registro, plantilla páginas de contenido...).
+```
+
+```
+.04 Proyecto - Customer-Driven Design
+OPCIÓN 2 – Diseño gráfico Modular
+Diseño modular
+El ámbito del diseño modular abarca los siguientes puntos:
+El diseño de la página Home incluye un máximo de 5 módulos de diseño.
+Definición de estructuras seleccionadas en prototipo wireframe para una vista de categoría y una ficha de producto.
+Se podrán realizar modificaciones o ajustes (un límite de 2) en cada página a diseñar para conseguir la versión definitiva del diseño. En caso de necesitar más cambios se realizarán consumiendo Tpoints.
+Si después de la presentación de 2 propuestas no se llega a una línea que encaje, el alcance y el timming del proyecto deberá ajustarse.
+Las páginas de contenido adaptado serán de diseño estático y no incluyen funcionalidades de contenido dinámico (ej. buscador interno, formulario a medida, calculadoras, peticiones a webservices, etc.).
+El logo, tipografía y guidelines de la marca, deben ser proporcionados por el [CLIENTE]. En caso de ser necesario el desarrollo de la imagen de la marca, trilogi te puede ofrecer este servicio.
+```
+
+## .07 Presupuesto: lo que es fijo y lo que varía (confirmado con 5 PRP)
+
+| línea | fijo | varía |
+|---|---|---|
+| Consultoría Ámbito y Alcance (⟨10|25⟩ T-points) | 10 T-points = 780 € (SaaS) / 800 € (Open Source); 25 = 1850 / 1900 € | si hay Consultoría |
+| Desarrollo proyecto según alcance comercial + redirecciones 301 hasta ⟨N⟩ urls + formación | | importe, N URL, plan de soporte (90 € Silver / 150 € Gold «a concretar») |
+| Migraciones, integraciones, desarrollos a medida | | líneas e importes, o «Incluido» / «A valorar» |
+| Paquete de ⟨5|10|50⟩ T-Points para pequeños ajustes | «(Incluido)» | tamaño |
+| Pack Marketing Digital Cookiesless | **1235 €** en eCommerce, **780 €** en Web | incluido u «OPCIONAL» |
+| Lawwwing & Set-up Modo Consentimiento de Google (v2) | **345 €** | incluido u «OPCIONAL» |
+| Total Proyecto | | suma; mensual «A concretar» |
+| Forma de pago | el texto de transferencia/domiciliación | los porcentajes: vistos 50/40/10, 45/30/20/5, 50/35/15, 40/25/20/10/5 → `[FALTA: forma de pago]` si no la da el comercial |
+| Condiciones | «Todos los precios… sin IVA», «des del primer pago…» | horas de dedicación, semanas de arranque (1-2 o 3-4), validez (1 o 2 meses) |
+
+«A concretar» y «A valorar» en la columna mensual o en una línea SON texto válido de plantilla, no huecos.
+
+## Variante Web (web corporativa sin tienda): resumen de cambios
+
+- Nombre de archivo: «Propuesta Proyecto Web Wordpress_⟨Cliente⟩».
+- «eCommerce» → «web» / «Web» en Objetivos, Método («proyectos» a secas), Consultoría, Ámbito, Soporte, Miscelánea. **Excepto** la cabecera del presupuesto, que en la muestra sigue diciendo «Proyecto eCommerce» (errata de plantilla: repródúcela).
+- Objetivos: «Creación de una web a medida con un diseño personalizado», «Implantar una plataforma Open Source (Wordpress) de alto rendimiento corporativo, a un precio asequible», «ofreciéndole la tecnología solicitada, para facilitar la comunicación y contacto con la marca». Sin «multicanalidad» ni marketing B2C.
+- Miscelánea: «Transportes: en este caso no aplica al no tratarse de un eCommerce.» y «Check-out: en este caso no aplica al no tratarse de un eCommerce.» Formulario de registro «(si lo hubiera)». «productos o servicios de la web actual».
+- Soporte Open Source y T-Points Open Source. Cookieless a 780 €.
