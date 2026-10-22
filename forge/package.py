@@ -94,7 +94,10 @@ class AgentPackage:
         servidor es del entorno destino, así que se toma de config["mcp_server"] (por defecto "forge").
         """
         server = self.config.get("mcp_server", "forge")
-        tools = ", ".join(f"mcp__{server}__{t.name}" for t in self.tools) or "Read"
+        names = [f"mcp__{server}__{t.name}" for t in self.tools]
+        if self.skills:
+            names.append("Skill")                        # sin Skill el agente no puede cargar sus skills
+        tools = ", ".join(names) or "Read"
         return AGENT_MD_TEMPLATE.format(
             name=self.name,
             description=json.dumps(self.description.replace("\n", " "), ensure_ascii=False),  # entrecomillado YAML-safe

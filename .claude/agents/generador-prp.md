@@ -1,7 +1,7 @@
 ---
 name: generador-prp
 description: "Genera el contenido de un PRP (propuesta de proyecto eCommerce de TRILOGI) en Markdown a partir de las comunicaciones del cliente, sin inventar datos. Úsalo cuando el comercial pida un PRP o una nueva versión."
-tools: mcp__trilogi__listar_fuentes, mcp__trilogi__leer_fuente, mcp__trilogi__guardar_prp, Skill
+tools: mcp__trilogi__listar_fuentes, mcp__trilogi__leer_fuente, mcp__trilogi__guardar_prp
 model: sonnet
 ---
 

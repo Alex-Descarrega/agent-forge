@@ -8,6 +8,8 @@
   run         evalúa el package actual (sin modificar nada)
   train       bucle completo de afinado
   export      zip portátil del agente
+  export-tools genera un servidor MCP REAL (stdio, sin dependencias) para el contrato de tools, sobre carpetas locales
+  install     instala el paquete en el proyecto actual: .claude/agents/, .claude/skills/, servidor MCP y .mcp.json
   demo        todo lo anterior en modo mock, sin API, para ver la tubería
   ui          interfaz de consola: chat + casos + versiones + log, en pestañas (curses, sin dependencias)
   chat        banco de pruebas en texto plano: conversa con el agente; /save guarda un caso
@@ -23,6 +25,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -294,6 +297,144 @@ def cmd_train(args):
     Trainer(ws, _llm(args), _runner(args), cfg).train()
 
 
+def cmd_export_tools(args):
+    """Genera un servidor MCP stdio REAL para el contrato de tools del paquete, sobre carpetas locales.
+
+    Sirve para probar el agente en Claude Code tal cual se evaluó: mismos nombres de tools.
+    Implementa tools de archivo (listar/leer/guardar) de forma genérica; las demás quedan como
+    stubs que devuelven 'no implementada' para que las completes.
+    """
+    ws = Workspace(args.workspace)
+    pkg = ws.load_package()
+    server = pkg.config.get("mcp_server", "forge")
+    out_dir = Path(args.out or "mcp"); out_dir.mkdir(parents=True, exist_ok=True)
+    py = out_dir / f"{server}_mcp.py"
+    tools_json = json.dumps(json.dumps([t.__dict__ for t in pkg.tools], ensure_ascii=False))   # literal de cadena Python
+    py.write_text(_MCP_TEMPLATE.replace("__TOOLS__", f"json.loads({tools_json})").replace("__SERVER__", server)
+                  .replace("__IN__", args.input_dir).replace("__OUT__", args.output_dir), encoding="utf-8")
+    cfg_path = Path(".mcp.json")
+    cfg = json.loads(cfg_path.read_text()) if cfg_path.exists() else {"mcpServers": {}}
+    cfg.setdefault("mcpServers", {})[server] = {"command": "python3", "args": [str(py)]}
+    cfg_path.write_text(json.dumps(cfg, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"Servidor MCP '{server}' en {py}; registrado en {cfg_path}.")
+    print(f"Tools: {', '.join(t.name for t in pkg.tools)}. Fuentes: {args.input_dir}/  Salida: {args.output_dir}/")
+    print("Revisa los stubs marcados TODO si alguna tool no es de archivo. Reinicia Claude Code para que cargue el servidor.")
+
+
+_MCP_TEMPLATE = r'''"""Servidor MCP stdio para el contrato de tools de un agente afinado con Agent Forge.
+Generado por `forge export-tools`. Sin dependencias. Solo lee de IN_DIR y escribe en OUT_DIR."""
+import json, os, sys
+from pathlib import Path
+
+TOOLS = __TOOLS__
+IN_DIR = Path("__IN__").resolve()
+OUT_DIR = Path("__OUT__").resolve()
+
+
+def _safe(base: Path, name: str) -> Path:
+    p = (base / name).resolve()
+    if base not in p.parents and p != base:
+        raise ValueError("ruta fuera de la carpeta permitida")
+    return p
+
+
+def handle(name: str, args: dict):
+    """Implementación genérica por nombre. Edita aquí lo que no encaje con tu caso."""
+    low = name.lower()
+    if low.startswith(("listar", "list")):
+        IN_DIR.mkdir(parents=True, exist_ok=True)
+        items = []
+        for f in sorted(IN_DIR.iterdir()):
+            if f.is_file() and not f.name.startswith("."):
+                import datetime
+                items.append({"nombre": f.name, "fecha": datetime.date.fromtimestamp(f.stat().st_mtime).isoformat()})
+        return items, False
+    if low.startswith(("leer", "read", "get")):
+        key = next((k for k in ("nombre", "name", "ruta", "path", "id") if k in args), None)
+        if key is None:
+            return {"error": "falta el nombre"}, True
+        try:
+            p = _safe(IN_DIR, str(args[key]))
+            if not p.exists():
+                return {"error": "fuente no encontrada", "nombre": args[key]}, True
+            return {"nombre": p.name, "texto": p.read_text(encoding="utf-8", errors="replace")}, False
+        except ValueError as e:
+            return {"error": str(e)}, True
+    if low.startswith(("guardar", "save", "write", "export")):
+        fname = next((args[k] for k in ("nombre_archivo", "nombre", "filename", "name") if k in args), None)
+        content = next((args[k] for k in ("contenido", "content", "texto", "text") if k in args), None)
+        if not fname or content is None:
+            return {"error": "faltan nombre_archivo o contenido"}, True
+        try:
+            OUT_DIR.mkdir(parents=True, exist_ok=True)
+            p = _safe(OUT_DIR, str(fname))
+            if p.exists():
+                return {"error": "el archivo ya existe; usa una versión nueva", "ruta": str(p)}, True
+            p.write_text(str(content), encoding="utf-8")
+            return {"ok": True, "ruta": str(p)}, False
+        except ValueError as e:
+            return {"error": str(e)}, True
+    return {"error": f"TODO: tool '{name}' no implementada en este servidor"}, True
+
+
+def _schema(t):
+    props = {}
+    for k, v in (t.get("input_schema") or {}).items():
+        props[k] = v if isinstance(v, dict) else {"type": v if v in ("string", "number", "integer", "boolean") else "string"}
+    out = {"type": "object", "properties": props}
+    if t.get("required"):
+        out["required"] = [r for r in t["required"] if r in props]
+    return out
+
+
+def main():
+    def send(o):
+        sys.stdout.write(json.dumps(o, ensure_ascii=False) + "\n"); sys.stdout.flush()
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            req = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        m, rid = req.get("method"), req.get("id")
+        if m == "initialize":
+            send({"jsonrpc": "2.0", "id": rid, "result": {"protocolVersion": req.get("params", {}).get("protocolVersion", "2024-11-05"),
+                  "capabilities": {"tools": {}}, "serverInfo": {"name": "__SERVER__", "version": "1.0.0"}}})
+        elif m == "tools/list":
+            send({"jsonrpc": "2.0", "id": rid, "result": {"tools": [{"name": t["name"], "description": t.get("description", ""), "inputSchema": _schema(t)} for t in TOOLS]}})
+        elif m == "tools/call":
+            p = req.get("params", {}); out, err = handle(p.get("name"), p.get("arguments") or {})
+            send({"jsonrpc": "2.0", "id": rid, "result": {"content": [{"type": "text", "text": json.dumps(out, ensure_ascii=False)}], "isError": err}})
+        elif m == "ping":
+            send({"jsonrpc": "2.0", "id": rid, "result": {}})
+        elif rid is not None:
+            send({"jsonrpc": "2.0", "id": rid, "error": {"code": -32601, "message": f"no soportado: {m}"}})
+
+
+if __name__ == "__main__":
+    main()
+'''
+
+
+def cmd_install(args):
+    """Instala el paquete como subagente de Claude Code en el proyecto actual (+ skills + servidor MCP)."""
+    import shutil
+    ws = Workspace(args.workspace)
+    pkg = ws.load_package()
+    agents = Path(".claude/agents"); skills = Path(".claude/skills")
+    agents.mkdir(parents=True, exist_ok=True); skills.mkdir(parents=True, exist_ok=True)
+    (agents / f"{pkg.name}.md").write_text(pkg.render_agent_md(), encoding="utf-8")
+    for name, content in pkg.skills.items():
+        d = skills / name; d.mkdir(parents=True, exist_ok=True); (d / "SKILL.md").write_text(content, encoding="utf-8")
+    print(f"Agente en {agents / (pkg.name + '.md')}; {len(pkg.skills)} skills en {skills}/")
+    if pkg.tools:
+        args.out = args.out or "mcp"
+        cmd_export_tools(args)
+    print(f"\nReinicia Claude Code y prueba:  > usa el subagente {pkg.name}: …")
+
+
 def cmd_export(args):
     ws = Workspace(args.workspace)
     out = ws.export(Path(args.out or f"{ws.root.name}-agent.zip"))
@@ -357,6 +498,9 @@ def main(argv=None):
     s = sub.add_parser("chat"); s.add_argument("workspace"); s.add_argument("--model"); s.add_argument("--version", help="hablar con una versión concreta (vNNN)")
     s.add_argument("--world", help="JSON con respuestas simuladas para las tools"); s.set_defaults(fn=cmd_chat)
     s = sub.add_parser("export"); s.add_argument("workspace"); s.add_argument("--out"); s.set_defaults(fn=cmd_export)
+    s = sub.add_parser("export-tools"); s.add_argument("workspace"); s.add_argument("--out", help="carpeta del servidor (por defecto mcp/)")
+    s.add_argument("--input-dir", default="fuentes", help="carpeta que leen las tools de lectura"); s.add_argument("--output-dir", default="prp", help="carpeta donde escriben las tools de guardado"); s.set_defaults(fn=cmd_export_tools)
+    s = sub.add_parser("install"); s.add_argument("workspace"); s.add_argument("--out"); s.add_argument("--input-dir", default="fuentes"); s.add_argument("--output-dir", default="prp"); s.set_defaults(fn=cmd_install)
     s = sub.add_parser("demo"); s.add_argument("workspace"); s.set_defaults(fn=cmd_demo)
 
     args = p.parse_args(argv)

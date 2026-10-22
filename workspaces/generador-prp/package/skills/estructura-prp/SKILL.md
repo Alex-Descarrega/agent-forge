@@ -23,7 +23,7 @@ El PRP es un **PPTX sobre plantilla corporativa** que se exporta a PDF. Ocupa en
 
 - No uses como modelo Missglinter (plantilla de 2024), TOMBLACK ni «LogiCommerce Propuesta BUSINESS».
 - Si no consta qué variante usar, pregunta al comercial.
-- En la diapositiva del índice, «.08 Miscelánea» aparece antes que «.07 Presupuesto». Así viene en la plantilla: no lo toques.
+- En algunas plantillas la diapositiva del índice lista «.08 Miscelánea» antes que «.07 Presupuesto» (errata de maquetación); en otras va en orden. Usa el orden numérico (.07 Presupuesto, .08 Miscelánea) salvo que el comercial indique otra cosa. El contenido va siempre en orden numérico.
 
 ## 2. Orden de la variante completa
 Leyenda: FIJA = texto literal, solo sustituyes [CLIENTE]; SEMIFIJA = texto con huecos; VARIABLE = se redacta a partir de las fuentes.
@@ -48,7 +48,7 @@ Leyenda: FIJA = texto literal, solo sustituyes [CLIENTE]; SEMIFIJA = texto con h
     - Marketing Digital Cookieless (3 diapositivas FIJAS).
     - Lawwwing.
     - Set-up Modo Consentimiento de Google (v2).
-14. **.04 Formación** (FIJA, 4 horas en remoto).
+14. **.04 Formación** (FIJA, 2 horas en remoto; el texto literal está en `textos-fijos-prp`).
 15. **.04 Customer-Driven Design**, unas 10 diapositivas FIJAS con [CLIENTE].
 16. **Diseño gráfico** (VARIABLE). Puede ser template premium o diseño modular. Varían el número de páginas de contenido, el límite de revisiones (2 o 3) y si la compra del template está incluida.
 17. **.04 Equipo** (FIJA): organigrama, Funciones del PM (dentro y fuera de su ámbito) y Seguimiento de Dirección Estratégica.
@@ -89,7 +89,7 @@ Leyenda: FIJA = texto literal, solo sustituyes [CLIENTE]; SEMIFIJA = texto con h
      - Virtagora (B2C/B2B) muestra solo GOLD y PLATINUM, sin «– Opcional -».
      - LogiCommerce rotula la fila de tickets ilimitados como «Tickets de gestión de Incidencia (diagnóstico)» y la coloca tras la de soporte telefónico.
 3. **Nivel de Servicio: definiciones de criticidad**: Muy alta, Alta, Media y Baja, con sus ejemplos (FIJA).
-4. **Nivel de Servicio: tabla SLA**. Columnas: `Tipología incidencia por criticidad | Tiempo máximo de primera respuesta | % en plazo | Tiempo máximo de primera acción | % en plazo`.
+4. **Nivel de Servicio: tabla SLA**. Columnas: `Tipología incidencia por criticidad | Tiempo máximo de primera respuesta | Porcentaje de primera respuesta en plazo | Tiempo máximo de diagnóstico | Porcentaje de diagnóstico en plazo` (texto literal en `textos-fijos-prp`).
 
 | Criticidad | Primera respuesta | % en plazo | Primera acción | % en plazo |
 |---|---|---|---|---|
@@ -173,3 +173,8 @@ EMARKETING: ¿incluir? [FALTA]; ¿fila Paid Media? [FALTA]
 CONTROL DE CAMBIOS: Presentación propuesta | [FALTA: autor] | 1.0
 LISTA DE HUECOS: (todos los [FALTA])
 ```
+
+
+## Prioridad entre skills
+
+Si esta skill y `textos-fijos-prp` discrepan en una cifra o un texto fijo, manda `textos-fijos-prp`: contiene el texto literal de PRP reales. Esta skill describe la estructura y lo que varía.
