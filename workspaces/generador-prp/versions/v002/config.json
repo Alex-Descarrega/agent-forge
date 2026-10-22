@@ -1,0 +1,6 @@
+{
+  "model": "sonnet",
+  "max_turns": 16,
+  "timeout_s": 600,
+  "mcp_server": "trilogi"
+}

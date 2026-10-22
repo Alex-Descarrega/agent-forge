@@ -7,14 +7,17 @@ description: Cárgala cuando el comercial pida un PRP nuevo o una nueva versión
 
 Las muestras son PRP terminados y no muestran el proceso. Los pasos marcados como **(inferido)** se deducen de cómo se rellenan las variables y de los changelogs de versiones.
 
-## 1. Autonomía, variante y versión
-- Pregunta el nivel de autonomía.
-- Pregunta la variante de plantilla si no consta: completa, Quick-Start, Migración o Web (ver estructura-prp).
-- Si ya existe un PRP del cliente, pregunta si partes de él.
-- **Nunca sobrescribas.** La versión nueva es `_v<N+1>` con la fecha del día.
+## 1. Variante y versión
+- No preguntes por el nivel de autonomía: siempre entregas un borrador para revisión.
+- Variante de plantilla: usa la que se deduzca de las fuentes (Web si no hay tienda; Quick-Start/Migración si lo indica el comercial). Si no consta, usa la completa.
+- Si existe un PRP anterior del cliente y la instrucción no dice si es versión nueva y qué cambia, **pregunta antes de redactar** si es v<N+1> (y qué cambia) o un PRP nuevo. No generes ni guardes nada hasta tener la respuesta.
+- **Nunca sobrescribas.** La versión nueva es `_v<N+1>` con la fecha del día. Parte de la versión anterior y cambia solo lo indicado.
+- La instrucción del comercial para la nueva versión manda sobre las fuentes anteriores. No es una contradicción.
+- Lo que sale del alcance desaparece del documento. Redacta el cambio en positivo, con el estado nuevo, sin nombrar lo eliminado.
 - Añade una fila al control de versiones con el cambio en una línea, igual que en las muestras:
   - «Propuesta V.2 -> incluimos las personalizaciones a medida según archivo Excel compartido por el cliente»;
   - «Propuesta V.4 -> Ajustamos a 20% el pago final a Go-live, según petición del cliente».
+- Conserva las filas anteriores. Si no consta el autor de una, deja `[FALTA: autor vX]`.
 - El cambio tiene que salir de las fuentes o de la instrucción del comercial.
 - No deduzcas cuál es la versión vigente por el nombre de archivo: Animalsdog tiene dos «v1» distintos.
 
@@ -96,5 +99,5 @@ No calcules, no estimes y no copies cifras de otro PRP. El rango de meses lo da 
 - [ ] Los sistemas de Consultoría y de la cláusula de testeo son los del cliente.
 - [ ] La Cronología está completa o con [FALTA].
 - [ ] El tratamiento es uniforme. Marmeraki mezcla «su» en Transparencia con «tu» en el resto.
-- [ ] El control de versiones está actualizado.
+- [ ] El control de versiones está actualizado y no nombra el alcance eliminado.
 - [ ] El número de [FALTA] del cuerpo coincide con la lista final.

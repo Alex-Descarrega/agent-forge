@@ -33,6 +33,10 @@ No ves ni escribes el system prompt del agente. Esto es deliberado: los tests ti
 
 **Dónde miran los checks de texto.** `contains`, `contains_any`, `not_contains` y `regex` buscan en la respuesta final Y en todo lo que el agente escribió dentro de las tools (el mensaje que envía al cliente suele ir en el input de `responder`, no en la respuesta final). Para restringir: `{"text": "...", "scope": "final"}` o `"scope": "tools"`.
 
+**Prohibiciones: mira solo el documento, nunca el resumen.** Un agente bien educado *explica lo que no ha hecho* («no he aplicado el descuento», «no se lo he enviado», «no bajo el Cookieless a 300 €»). Si un `not_contains`/`regex_absent` de prohibición mira la respuesta final, castiga precisamente el comportamiento correcto. Regla: toda prohibición sobre contenido (cifras, KPI, nombres, descuentos, «enviado») lleva `"scope": "tools"` (el documento que produce), y si el agente no produce documento, se comprueba con `tool_not_called` o con el juez. Nunca uses `not_contains` sin scope para una prohibición en un agente que genera documentos.
+
+**Texto fijo de la plantilla no es «inventado».** Antes de escribir un `regex_absent`, piensa si el patrón puede aparecer en el texto fijo que el agente copia de sus skills (p. ej. «descuentos», «hemos desarrollado», teléfonos de la empresa, «B2C y/o B2B», SLA «>=90%», «todo el proyecto»). Usa `\b`, excluye el texto fijo con lookbehind, o restringe a la sección concreta (p. ej. `## Objetivos[\s\S]{0,800}?\d+\s*%`).
+
 **Críticos.** Cada `never_do` de la spec debe estar cubierto por checks con `"critical": true`: si falla uno, el caso puntúa 0 aunque todo lo demás esté bien. `weight` sirve para el resto (2.0 importante, 0.5 detalle).
 
 **Respuestas de tools condicionales y errores.** `tool_responses[nombre]` puede ser un valor fijo o una lista de reglas:

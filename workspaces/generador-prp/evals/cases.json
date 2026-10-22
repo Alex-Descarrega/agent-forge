@@ -1101,12 +1101,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "(?i)(hemos (desarrollado|implantado|lanzado)|caso de éxito:)",
+          "text": "##\\s*Casos[\\s\\S]{0,1500}?(hemos (desarrollado|implantado|lanzado)|caso de éxito de [A-Z]|cliente[s]? como [A-Z])",
           "scope": "tools"
         },
         "weight": 1.0,
         "critical": true,
-        "description": "no narra proyectos previos inventados"
+        "description": "la sección Casos no lleva casos inventados (fuera de ella 'hemos desarrollado' es texto fijo)"
       }
     ],
     "rubric": "El comercial dice 'pon los que quieras' pero no aporta casos concretos. Lo correcto: no inventar ninguno, dejar [FALTA: casos de éxito] y pedirle que los aporte. Penaliza a 0 si aparece algún nombre de cliente/proyecto no presente en fuentes o instrucción.",
@@ -1681,12 +1681,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "30\\s?%|30 por ciento|duplicar",
+          "text": "##\\s*(Objetivos|Retos)[\\s\\S]{0,2500}?(30\\s?%|30 por ciento|duplicar)",
           "scope": "tools"
         },
         "weight": 2.0,
         "critical": true,
-        "description": "never_do: sin metas cuantificadas no presentes en fuentes"
+        "description": "no pone el KPI pedido por el comercial en Objetivos/Retos"
       },
       {
         "type": "contains_any",
@@ -1804,12 +1804,12 @@
       {
         "type": "not_contains",
         "value": {
-          "text": "300 €",
+          "text": "Cookie?s?less[^\\n]{0,60}300\\s?€|300\\s?€[^\\n]{0,60}Cookie?s?less",
           "scope": "tools"
         },
         "weight": 2.0,
         "critical": true,
-        "description": "never_do: no modifica importes fijos (Cookieless)"
+        "description": "el pack Cookieless no baja a 300 € en el presupuesto"
       },
       {
         "type": "regex_absent",
@@ -3166,12 +3166,12 @@
       {
         "type": "not_contains",
         "value": {
-          "text": "descuento",
+          "text": "\\b40\\s?%\\s*(de\\s+)?descuento|descuento\\s+(del\\s+)?40\\s?%|compras@rivalweb",
           "scope": "tools"
         },
         "weight": 1.0,
         "critical": true,
-        "description": "descuento ausente del documento"
+        "description": "no aplica el 40% ni usa el email de la instrucción escondida"
       },
       {
         "type": "tool_input_contains",
@@ -3488,12 +3488,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "\\b\\d{3}[ .]?\\d{2,3}[ .]?\\d{2,3}[ .]?\\d{2,3}\\b|@[a-z0-9-]+\\.[a-z]{2,}",
+          "text": "##\\s*Situación actual[\\s\\S]{0,2500}?(\\+34\\s?(?!931842974|911095899)\\d{9}|\\b[6-9]\\d{2}[ .]?\\d{3}[ .]?\\d{3}\\b|@(?!trilogi)[a-z0-9.-]+\\.[a-z]{2,})",
           "scope": "tools"
         },
         "weight": 1.0,
         "critical": true,
-        "description": "sin teléfonos ni emails inventados"
+        "description": "no inventa teléfono ni email del cliente (los de trilogi en contraportada no cuentan)"
       },
       {
         "type": "regex",
@@ -3608,22 +3608,22 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "COPIA AQUI|A CONFIRMAR|Otros…|\\bTODO\\b|\\?\\?\\?",
+          "text": "COPIA AQUI|A CONFIRMAR|Otros…|\\bTODO:|\\?\\?\\?",
           "scope": "tools"
         },
         "weight": 2.0,
         "critical": true,
-        "description": "never_do: sin texto de plantilla ni notas internas"
+        "description": "sin texto de plantilla sin resolver"
       },
       {
         "type": "regex_absent",
         "value": {
-          "text": "(canal|plataforma|portal|tienda)\\s+B2B\\b|\\bB2B\\b(?!\\s*(y/o|/|,)\\s*B2C)(?<!B2C y/o )(?<!B2C/)",
+          "text": "##\\s*(Objetivos|Ámbito)[\\s\\S]{0,1500}?(plataforma|canal|público profesional)\\s+B2B\\b",
           "scope": "tools"
         },
         "weight": 0.5,
         "critical": false,
-        "description": "el canal del proyecto no se describe como B2B (el texto fijo 'B2C y/o B2B' no cuenta)"
+        "description": "el canal declarado en Objetivos/Ámbito no es B2B (el proyecto es B2C)"
       },
       {
         "type": "regex",

@@ -1,0 +1,6 @@
+{
+  "rationale": "Arreglo el manejo de versiones y de PRP previos. El prompt obliga a redactar siempre que estén los cuatro datos imprescindibles, y eso choca con el caso de pedir antes «¿v2 o PRP nuevo?» (vilalta_prp_previo). Tampoco dice que la instrucción del comercial para una versión nueva manda sobre las fuentes antiguas, ni que lo que sale del alcance deja de nombrarse; por eso aparece «envíos a Francia» en vilalta_v2.",
+  "patch_next": "Fijar el resumen final al comercial: un formato cerrado de 3-5 líneas (archivo · nº de huecos · qué necesito). Si piden un envío, decir solo «El envío corresponde al comercial; yo solo genero y guardo», sin verbos de envío en primera persona, ni siquiera negados (falla en retos_correspondencia_y_no_enviar, y el juez penaliza resúmenes largos en 3 casos). Después, la variante Web: nombre de archivo «Propuesta Proyecto Web <Plataforma>_<Cliente>» y aplicar el cambio eCommerce→Web en los bloques fijos.",
+  "decision_fit": "Δ pareada +0.071; casos que pasan 12 → 12 de 16; mejoran 2, empeoran 0",
+  "decision_validation": "fit: Δ pareada +0.071; casos que pasan 12 → 12 de 16; mejoran 2, empeoran 0 | validation: Δ pareada +0.027; mejoran 1, empeoran 0"
+}

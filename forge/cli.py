@@ -12,6 +12,7 @@
   ui          interfaz de consola: chat + casos + versiones + log, en pestañas (curses, sin dependencias)
   chat        banco de pruebas en texto plano: conversa con el agente; /save guarda un caso
   cases       lista los casos (revísalos antes de afinar)
+  lint-cases  detecta checks propensos a falsos positivos (prohibiciones sin scope, regex rotas); --fix los corrige
   history     versiones aceptadas con motivo y puntuaciones
   diff        diff de prompt/skills entre dos versiones
   show        traza completa de un caso en un run
@@ -25,7 +26,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from .evals import build_cases, load_cases
+from .evals import build_cases, load_cases, save_cases
 from .interview import run_interview, run_interview_scripted
 from .llm import LLM
 from .loop import TrainConfig, Trainer
@@ -97,6 +98,41 @@ def cmd_build_evals(args):
     counts = {s: sum(1 for c in cases if c.split == s) for s in ("fit", "validation", "test")}
     print(f"{len(cases)} casos ({counts['fit']} fit / {counts['validation']} validation / {counts['test']} test) → {ws.cases_path}")
     print("Revísalos: una batería mala afina hacia el sitio equivocado.")
+
+
+def cmd_lint_cases(args):
+    """Avisa de checks que suelen producir falsos positivos."""
+    import re as _re
+    ws = Workspace(args.workspace)
+    cases = load_cases(ws)
+    problems = 0
+    risky = ("todo", "descuento", "enviado", "desarrollado", "%", "€", r"\d{3}")
+    for c in cases:
+        for ch in c.checks:
+            v = ch.value; pat = v.get("text") if isinstance(v, dict) else v
+            scope = v.get("scope") if isinstance(v, dict) else None
+            if ch.type in ("not_contains", "regex_absent") and scope is None:
+                print(f"[{c.id}] {ch.type}={str(pat)[:50]!r}: prohibición SIN scope → mira también el resumen al humano; añade scope:'tools'"); problems += 1
+            if ch.type in ("regex", "regex_absent") and isinstance(pat, str):
+                try: _re.compile(pat)
+                except _re.error as e: print(f"[{c.id}] regex inválida {pat[:50]!r}: {e}"); problems += 1; continue
+                if ch.type == "regex_absent" and _re.search(r"(?<!\\b)\bTODO\b|\\bTODO\\b", pat):
+                    print(f"[{c.id}] regex_absent con TODO: con re.I casa 'todo' en castellano; usa 'TODO:' o quítalo"); problems += 1
+            if ch.type == "regex_absent" and isinstance(pat, str) and any(r in pat.lower() for r in risky) and ch.critical:
+                print(f"[{c.id}] crítico con patrón de riesgo {pat[:50]!r}: comprueba que no aparezca en el texto fijo de las skills")
+    print(f"\n{len(cases)} casos revisados, {problems} problemas.")
+    if args.fix:
+        changed = 0
+        for c in cases:
+            for ch in c.checks:
+                v = ch.value
+                if ch.type in ("not_contains", "regex_absent") and not (isinstance(v, dict) and "scope" in v):
+                    ch.value = {"text": v, "scope": "tools"} if not isinstance(v, dict) else {**v, "scope": "tools"}; changed += 1
+                if ch.type == "regex_absent":
+                    pat = ch.value.get("text") if isinstance(ch.value, dict) else ch.value
+                    if isinstance(pat, str) and "TODO" in pat:
+                        ch.value["text"] = pat.replace("|\\bTODO\\b", "").replace("\\bTODO\\b|", "").replace("|TODO", "").replace("TODO|", "")
+        save_cases(ws, cases); print(f"--fix: {changed} prohibiciones ahora con scope:'tools'")
 
 
 def cmd_cases(args):
@@ -310,6 +346,7 @@ def main(argv=None):
     s.add_argument("--no-judge", action="store_true"); s.add_argument("--model"); s.set_defaults(fn=cmd_train)
     s = sub.add_parser("cases"); s.add_argument("workspace"); s.add_argument("--split", choices=["fit", "validation", "test", "all"], default="all")
     s.add_argument("--tag"); s.add_argument("-v", "--verbose", action="store_true"); s.set_defaults(fn=cmd_cases)
+    s = sub.add_parser("lint-cases"); s.add_argument("workspace"); s.add_argument("--fix", action="store_true", help="pone scope:'tools' a las prohibiciones sin scope"); s.set_defaults(fn=cmd_lint_cases)
     s = sub.add_parser("history"); s.add_argument("workspace"); s.set_defaults(fn=cmd_history)
     s = sub.add_parser("show"); s.add_argument("workspace"); s.add_argument("run", help="nombre del run sin .json, p.ej. v002-fit")
     s.add_argument("case", nargs="?"); s.set_defaults(fn=cmd_show)
