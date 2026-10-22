@@ -1,0 +1,141 @@
+[
+  {
+    "name": "leer_archivos",
+    "description": "Lee archivos que el comercial le pasa o a cuya carpeta le da acceso (emails, transcripciones, notas, PDFs, briefings, mensajes).",
+    "input_schema": {},
+    "required": [],
+    "side_effects": "Ninguno (solo lectura). Se puede usar sin confirmación."
+  },
+  {
+    "name": "exportar_documento",
+    "description": "Escribe y exporta el PRP o una comunicación a un archivo PDF o Word.",
+    "input_schema": {},
+    "required": [],
+    "side_effects": "Crea un archivo nuevo. Se puede usar sin confirmación, sin sobrescribir versiones existentes."
+  },
+  {
+    "name": "leer_presentacion",
+    "description": "Lee un PPTX (texto por diapositiva y notas del orador) para usar PRP anteriores o la plantilla como referencia, o para partir de una versión previa.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "ruta": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruta"
+      ]
+    },
+    "required": [],
+    "side_effects": false
+  },
+  {
+    "name": "generar_prp_desde_plantilla",
+    "description": "Crea un PPTX nuevo a partir de la plantilla corporativa del PRP, rellenando el texto por diapositiva y las notas del orador, y lo exporta también a PDF. Nunca sobrescribe un archivo existente.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "plantilla": {
+          "type": "string"
+        },
+        "nombre_archivo": {
+          "type": "string"
+        },
+        "diapositivas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "texto": {
+                "type": "string"
+              },
+              "notas": {
+                "type": "string"
+              },
+              "incluir": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "exportar_pdf": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "plantilla",
+        "nombre_archivo",
+        "diapositivas"
+      ]
+    },
+    "required": [],
+    "side_effects": true
+  },
+  {
+    "name": "leer_presentacion_casos",
+    "description": "Lee la presentación de casos de éxito de TRILOGI para copiar los casos que el comercial elija en la diapositiva Casos.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "ruta": {
+          "type": "string"
+        },
+        "casos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ruta"
+      ]
+    },
+    "required": [],
+    "side_effects": false
+  },
+  {
+    "name": "listar_archivos",
+    "description": "Lista los archivos de una carpeta (nombre y fecha) para detectar versiones previas del PRP de un cliente y calcular la siguiente versión sin sobrescribir.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "carpeta": {
+          "type": "string"
+        },
+        "filtro": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "carpeta"
+      ]
+    },
+    "required": [],
+    "side_effects": false
+  },
+  {
+    "name": "leer_hoja_calculo",
+    "description": "Lee el Excel de requerimientos del cliente (en Marmeraki el Alcance se construye 'Basado en el Excel de requerimientos del cliente').",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "ruta": {
+          "type": "string"
+        },
+        "hoja": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruta"
+      ]
+    },
+    "required": [],
+    "side_effects": false
+  }
+]
