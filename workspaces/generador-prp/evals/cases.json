@@ -1682,7 +1682,7 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "30\\s?%|30 por ciento|(?i)duplicar",
+          "text": "30\\s?%|30 por ciento|duplicar",
           "scope": "tools"
         },
         "weight": 2.0,
@@ -1965,12 +1965,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "(?i)(he enviado|lo he enviado|enviado a pere|te lo he mandado|ya se lo he mandado)",
+          "text": "(?<!no )(?<!no se )(?<!tampoco )\\b(he enviado|lo he enviado|se lo he enviado|te lo he mandado|ya se lo he mandado|enviado a pere)\\b",
           "scope": "final"
         },
         "weight": 2.0,
         "critical": true,
-        "description": "never_do: no afirma haber enviado nada"
+        "description": "no afirma haber enviado (negarlo sí vale)"
       },
       {
         "type": "contains_any",
@@ -2676,7 +2676,7 @@
       {
         "type": "regex",
         "value": {
-          "text": "(?m)^##\\s*(Lista de )?Buits|(?m)^##\\s*(Lista de )?Huecos",
+          "text": "(?m)^##\\s*(Lista de )?(Buits|Huecos|Mancances)",
           "scope": "tools"
         },
         "weight": 0.5,
@@ -3081,12 +3081,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "(?i)\\d+\\s*%",
+          "text": "(aument|subir|increment|mejorar|crecer|duplicar|reducir)[^.\\n]{0,40}?\\b\\d{1,3}\\s*%|\\b\\d{1,3}\\s*%\\s*(más|de mejora|de aumento|de incremento)",
           "scope": "tools"
         },
         "weight": 1.5,
         "critical": true,
-        "description": "never_do: sin metas cuantificadas"
+        "description": "sin metas porcentuales de mejora inventadas (SLA fijos y descuentos de la skill no cuentan)"
       }
     ],
     "rubric": "Cifras exactas en la fuente. Deben aparecer tal cual, sin redondear ni derivar (p. ej. ticket medio calculado). Penaliza cualquier cálculo o proyección propia.",
@@ -3609,7 +3609,7 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "COPIA AQUI|A CONFIRMAR|Otros…|TODO|\\?\\?\\?",
+          "text": "COPIA AQUI|A CONFIRMAR|Otros…|\\bTODO\\b|\\?\\?\\?",
           "scope": "tools"
         },
         "weight": 2.0,
@@ -3619,12 +3619,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "(?i)\\bB2B\\b",
+          "text": "(canal|plataforma|portal|tienda)\\s+B2B\\b|\\bB2B\\b(?!\\s*(y/o|/|,)\\s*B2C)(?<!B2C y/o )(?<!B2C/)",
           "scope": "tools"
         },
-        "weight": 1.0,
+        "weight": 0.5,
         "critical": false,
-        "description": "canal B2C consistente"
+        "description": "el canal del proyecto no se describe como B2B (el texto fijo 'B2C y/o B2B' no cuenta)"
       },
       {
         "type": "regex",

@@ -1,0 +1,616 @@
+{
+  "version": "v0-baseline",
+  "split": "test",
+  "mean_score": 0.6006,
+  "pass_rate": 0.3333,
+  "case_pass_rate": 0.3333,
+  "n_runs": 6,
+  "n_cases": 6,
+  "infra_errors": 0,
+  "results": [
+    {
+      "case_id": "cliente_en_catalan",
+      "run": 0,
+      "checks": [
+        {
+          "type": "tool_called",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "regex",
+          "passed": false,
+          "weight": 2.0,
+          "critical": false,
+          "detail": "regex (?i)\\b(botiga|projecte|nostre|subscripcions)\\b no coincide"
+        },
+        {
+          "type": "regex_absent",
+          "passed": false,
+          "weight": 1.0,
+          "critical": false,
+          "detail": "regex (?i)\\b(tienda online|nuestro proyecto|suscripciones)\\b aparece y no debería: 'tienda online'"
+        },
+        {
+          "type": "tool_input_contains",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "contains_any",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "regex",
+          "passed": false,
+          "weight": 0.5,
+          "critical": false,
+          "detail": "check lanzó excepción: global flags not at the start of the expression at position 28"
+        }
+      ],
+      "judge_score": 0.1,
+      "judge_reason": "El documento sale en castellano pese a que el cliente escribe en catalán, y el resumen solo lo menciona como dato en lugar de avisar del problema; además mete datos no sustentados por las fuentes (tablas de soporte, SLA, T-Points, Cookieless, forma de pago como si vinieran de «plantillas» que el agente nunca leyó) y dice que las partes fijas son [FALTA], en vez de reproducirlas. También afirma haber dejado fuera el pack de eMarketing y confunde el origen de los textos, lo que resta fiabilidad.",
+      "score": 0.4033,
+      "passed": false,
+      "critical_failed": false,
+      "infra_error": false,
+      "trace": {
+        "case_id": "cliente_en_catalan",
+        "final_text": "He guardado el PRP de Cafès Serra (Shopify, B2C, variante completa), pero tiene 35 huecos `[FALTA]`. El archivo es `221026_TRILOGI Propuesta Proyecto eCommerce Shopify_Cafès Serra_v1.md`. Está redactado en castellano y tuteando, y Marc Puig consta como autor en la v1.0. No he contado los `[FALTA]` del cuerpo uno a uno contra la lista final.\n\n**Qué lleva:**\n- **Sale del correo de Mireia Serra:** la situación actual, los retos, \"Cómo lo abordamos\" y el alcance general (60 productos, envíos a Catalunya y resto de España, suscripciones).\n- **Sale de las plantillas y las habilito tal cual:** costes de Shopify, tablas de soporte, SLA y T-Points, Cookieless (1235 €), Lawwwing (345 €) y forma de pago.\n\n**Qué no he podido hacer:**\n- No tengo el texto fijo de Transparencia, Método, Consultoría, Ámbito, Formación, Customer-Driven Design, Equipo, Miscelánea y otras secciones. Esos bloques están como `[FALTA]` en vez de copiados. Si me das la plantilla, los relleno.\n- La otra mitad de los huecos son datos del proyecto, que no constan en el correo ni me los has dado.\n\n**Lo que necesito de ti:**\n- **De Cafès Serra:**\n  - quién carga los 60 productos y en qué formato;\n  - transportistas y tarifas de envío;\n  - requisitos de las suscripciones (frecuencias y productos);\n  - métodos de pago.\n- **Internos de trilogi:**\n  - duración del proyecto y semanas de arranque;\n  - T-Points de consultoría (10 o 25) y su importe;\n  - importe del desarrollo;\n  - paquete de T-Points de ajustes (5, 10 o 50);\n  - horas de dedicación;\n  - validez de la propuesta (1 o 2 meses);\n  - planes de soporte a ofrecer;\n  - tipo de diseño;\n  - casos de éxito.\n- **Decisiones tuyas:** si Cafès Serra quiere el pack de eMarketing (lo he dejado fuera por ser opcional), y si prefieres otro idioma que el castellano.\n\nNo hay contradicciones entre fuentes porque solo hay un correo. Tampoco he incluido migración SEO, porque el correo habla de una tienda nueva.",
+        "tool_calls": [
+          {
+            "name": "listar_fuentes",
+            "input": {},
+            "output": [
+              {
+                "nombre": "correu_serra.txt",
+                "fecha": "2026-10-15"
+              }
+            ],
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "correu_serra.txt"
+            },
+            "output": {
+              "nombre": "correu_serra.txt",
+              "fecha": "2026-10-15",
+              "texto": "Bon dia Marc, som Cafès Serra, torrefactors de Vic. Volem obrir una botiga en línia per vendre cafè en gra i càpsules a particulars (B2C), amb Shopify. Tenim uns 60 productes. Volem enviaments a Catalunya i a la resta d'Espanya. El nostre repte és oferir subscripcions de cafè. Salutacions, Mireia Serra."
+            },
+            "is_error": false
+          },
+          {
+            "name": "guardar_prp",
+            "input": {
+              "nombre_archivo": "221026_TRILOGI Propuesta Proyecto eCommerce Shopify_Cafès Serra_v1.md",
+              "contenido": "# Propuesta Proyecto eCommerce Shopify – Cafès Serra\n\n## Portada\n[FALTA: texto fijo de portada de la plantilla]\n\n## Transparencia\n[FALTA: texto fijo de Transparencia (cuatro viñetas), solo con \"según necesidades de Cafès Serra\"]\n\n## Situación actual\nCafès Serra es una empresa torrefactora de Vic que vende café en grano y cápsulas. Cuenta con unos 60 productos.\n\nCafès Serra quiere abrir una tienda online para vender a particulares (B2C) en Catalunya y en el resto de España, con Shopify como plataforma. Su interlocutora es Mireia Serra. El reto principal de Cafès Serra es ofrecer suscripciones de café.\n\nEsta propuesta detallará el alcance, la metodología y la inversión necesarios para el proyecto de Cafès Serra.\n\n## Retos y Oportunidades\n\n### Retos\n- Abrir la tienda online de Cafès Serra\n- Ofrecer suscripciones de café\n- Vender café en grano y cápsulas a particulares (B2C)\n- Gestionar un catálogo de unos 60 productos\n- Realizar envíos a Catalunya y al resto de España\n\n### Oportunidades\n[FALTA: oportunidades del proyecto; las fuentes no las recogen]\n\n## Cómo lo abordamos\n- Crearemos una tienda online de Cafès Serra en Shopify\n- Consultoría de requerimientos y alcance\n- Implantaremos las suscripciones de café\n- Configuraremos el catálogo de café en grano y cápsulas\n- Configuraremos los envíos a Catalunya y al resto de España\n\n## Casos\n[FALTA: casos de éxito a incluir (los aporta el comercial)]\n\n## Objetivos\n[FALTA: texto fijo de Objetivos; variables: creación de eCommerce nuevo, plataforma Shopify, canal B2C, público particulares]\n\n## Índice\n[FALTA: texto fijo del índice de la plantilla]\n\n## .01 Cronología\n- Consultoría: 3 semanas\n- Proyecto: [FALTA: duración del proyecto en meses (N - M)]\n- Arranque: entre [FALTA: N] y [FALTA: M] semanas\n\n## .02 El Método TRILOGI\n[FALTA: texto fijo de El Método TRILOGI]\n\n## .03 Consultoría\n[FALTA: texto fijo de las 2 diapositivas de Consultoría, ajustado a B2C y sin sistemas externos, ya que las fuentes no citan ninguno]\n\n## .04 Ámbito\n[FALTA: texto fijo de las 7 viñetas de Ámbito, con partes implicadas cliente / trilogi y formación de todos los módulos/apps que incluye Shopify]\n\n## .04 Alcance\n\n### General\n- Implantación de una tienda online B2C en Shopify para Cafès Serra, con café en grano y cápsulas. No se incluye una web B2B.\n- Alta del catálogo de unos 60 productos. Carga de datos a cargo de [FALTA: quién carga los productos y en qué formato].\n- Configuración de envíos a Catalunya y al resto de España (pendiente de previo análisis técnico de requerimientos)*. Transportistas y tarifas: [FALTA: transportistas y tarifas de envío].\n- Soporte a la implantación de suscripciones de café (pendiente de previo análisis técnico de requerimientos)*. Condiciones de la suscripción (frecuencias, productos suscribibles): [FALTA: requisitos de las suscripciones]. El coste de compra de cualquier app no está incluido.\n- Pasarelas de pago: [FALTA: métodos de pago requeridos].\n\n\\* El detalle se definirá en la Consultoría.\n\n### Alcance – Shopify\n[FALTA: tabla \"Descripción | Implementación y configuración\" de módulos de Shopify]\n\n### Contenidos de plantilla\n[FALTA: texto fijo de Marketing Digital Cookieless (3 diapositivas), Lawwwing y Set-up Modo Consentimiento de Google (v2)]\n\n## .04 Formación\n[FALTA: texto fijo de Formación (4 horas en remoto)]\n\n## .04 Customer-Driven Design\n[FALTA: texto fijo de Customer-Driven Design con Cafès Serra]\n\n## Diseño gráfico\n[FALTA: tipo de diseño (template premium o modular), nº de páginas de contenido, límite de revisiones e inclusión de la compra del template]\n\n## .04 Equipo\n[FALTA: texto fijo de Equipo (organigrama, Funciones del PM, Seguimiento de Dirección Estratégica)]\n\n## .05 Software\nSomos una agencia experta en la instalación, desarrollo y mantenimiento de Shopify.\n\n[FALTA: resto del texto fijo de Software Shopify (descripción, URL y mensaje de partner Shopify)]\n\n### .06 Costes Shopify\nLos costes de la plataforma y de Shopify Payments los factura Shopify directamente a Cafès Serra. Las apps se contratan en la App Store y no entran en la propuesta.\n\n## .06 Soporte\n[FALTA: texto fijo de Soporte: introducción, definiciones de criticidad y bloques de Packs T-Points SaaS]\n\n### Planes de Servicio de Mantenimiento SaaS – Opcional -\n\n| | SILVER | GOLD | PLATINUM |\n|---|---|---|---|\n| Tipología eCommerce | B2C o B2B | B2C y/o B2B | B2C y/o B2B |\n| Soporte L-V 8 a 17h (CET) | Incluido | Incluido | Incluido |\n| Monitorización uptime 24x7 (criticidad «Muy Alta») | Incluido | Incluido | Incluido |\n| Gestión de Tickets (acceso 24x7 herramienta ticketing) | Ilimitado | Ilimitado | Ilimitado |\n| Soporte telefónico L-V 8 a 17h (CET) | - | Incluido | Incluido |\n| Tickets de soporte / consultas | 4 | 6 | 10 |\n| Descuentos en Packs T-Points (no acumulables) | - | 5% | 10% |\n| Precio | 90 € mensual | 150 € mensual | 250 € mensual |\n\n¿Planes que se ofrecen a Cafès Serra? [FALTA: confirmar si se ofrecen los tres planes SILVER / GOLD / PLATINUM]\n\n### Nivel de Servicio: SLA\n\n| Criticidad | Tiempo máximo de primera respuesta | % en plazo | Tiempo máximo de primera acción | % en plazo |\n|---|---|---|---|---|\n| Muy alta (naturales) | 1 hora | >=90% | 4 horas | >=90% |\n| Alta (laborables) | 4 horas | >=80% | 12 horas | >=80% |\n| Media (laborables) | 16 horas | >=80% | 36 horas | >=80% |\n| Baja (laborables) | 24 horas | >=80% | 72 horas | >=80% |\n| Consulta | 24 horas | >=80% | | |\n\n### Packs T-Points\n\n| T-Points | Importe |\n|---|---|\n| Pack 5* | 410 € |\n| Pack 10* | 780 € |\n| Pack 25 | 1850 € |\n| Pack 50 | 3500 € |\n| Pack 100 | 6700 € |\n| Pack 250 | 16000 € |\n\n\\* Solo disponible a partir de la compra del segundo pack.\n\n## turn visitors into customers\n\n## Presupuesto\ntrilogi llevará a cabo el siguiente proyecto y los servicios teniendo en cuenta las siguientes diapositivas.\n\n### .07 Presupuesto – Proyecto eCommerce\n\n| Descripción | Proyecto | Soporte y Mantenimiento (mensual) |\n|---|---|---|\n| Consultoría Ámbito y Alcance del Proyecto eCommerce ([FALTA: 10 o 25] T-points) | [FALTA: importe del pack de consultoría] | - |\n| Desarrollo proyecto según alcance definido | [FALTA: importe del desarrollo] | A concretar |\n| Pack Marketing Digital Cookiesless | 1235 € | - |\n| Lawwwing & Set-up Modo Consentimiento de Google (v2) | 345 € | - |\n| Paquete de [FALTA: 5, 10 o 50] T-Points para pequeños ajustes o desarrollos no contemplados | (Incluido) | - |\n| **Total Proyecto** | [FALTA: total, suma de la columna una vez confirmados los importes] | A concretar |\n\n**Forma de pago**\n- 40% a la aceptación\n- 25% a 60 días\n- 20% a 90 días\n- 10% a 120 días\n- 5% a 150 días de la aceptación o Go-Live (lo que suceda antes)\n- Proyecto: mediante transferencia bancaria. Vencimiento a 5 días desde emisión factura. Mantenimiento: Domiciliación bancaria. Vencimiento a día 5 de cada mes.\n\n**Condiciones**\n- La estimación de dedicación del proyecto es de [FALTA: horas de dedicación] horas.\n- Arranque entre 1 y 3 semanas des del primer pago.\n- Propuesta válida hasta [FALTA: 1 o 2 meses] después de su presentación.\n- Todos los precios mostrados en esta propuesta son sin IVA.\n\n## .08 Miscelánea\n[FALTA: texto fijo de las 4 diapositivas de Miscelánea con Cafès Serra]\n\n## Servicios\n[FALTA: texto fijo de Servicios]\n\n## Control de cambios\n\n| Descripción | Autor | Versión |\n|---|---|---|\n| Presentación propuesta | Marc Puig | 1.0 |\n\n## Contraportada\n[FALTA: texto fijo de contraportada]\n\n## Huecos\n1. Texto fijo de portada\n2. Texto fijo de Transparencia\n3. Oportunidades del proyecto\n4. Casos de éxito\n5. Texto fijo de Objetivos\n6. Texto fijo del índice\n7. Duración del proyecto en meses (N - M)\n8. Arranque, N semanas\n9. Arranque, M semanas\n10. Texto fijo de El Método TRILOGI\n11. Texto fijo de Consultoría\n12. Texto fijo de Ámbito\n13. Quién carga los productos y en qué formato\n14. Transportistas y tarifas de envío\n15. Requisitos de las suscripciones\n16. Métodos de pago requeridos\n17. Tabla de módulos de Alcance – Shopify\n18. Texto fijo de Marketing Digital Cookieless, Lawwwing y Consentimiento de Google\n19. Texto fijo de Formación\n20. Texto fijo de Customer-Driven Design\n21. Tipo de diseño gráfico y detalles\n22. Texto fijo de Equipo\n23. Resto del texto fijo de Software Shopify\n24. Texto fijo de Soporte (introducción, criticidad, T-Points)\n25. Planes de soporte que se ofrecen\n26. Consultoría: 10 o 25 T-points\n27. Importe de la consultoría\n28. Importe del desarrollo\n29. Paquete de T-Points de ajustes (5, 10 o 50)\n30. Total Proyecto\n31. Horas de dedicación\n32. Validez de la propuesta (1 o 2 meses)\n33. Texto fijo de Miscelánea\n34. Texto fijo de Servicios\n35. Texto fijo de contraportada\n"
+            },
+            "output": {
+              "ok": true,
+              "ruta": "/prp/guardado.md"
+            },
+            "is_error": false
+          }
+        ],
+        "turns": 10,
+        "error": null,
+        "infra_error": false,
+        "cost_usd": 0.15259230000000001
+      }
+    },
+    {
+      "case_id": "coherencia_plataforma_y_sin_plantilla",
+      "run": 0,
+      "checks": [
+        {
+          "type": "tool_call_count",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_called",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "regex_absent",
+          "passed": true,
+          "weight": 2.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "regex_absent",
+          "passed": false,
+          "weight": 2.0,
+          "critical": true,
+          "detail": "regex COPIA AQUI|A CONFIRMAR|Otros…|TODO|\\?\\?\\? aparece y no debería: 'todo'"
+        },
+        {
+          "type": "regex_absent",
+          "passed": false,
+          "weight": 1.0,
+          "critical": false,
+          "detail": "regex (?i)\\bB2B\\b aparece y no debería: 'B2B'"
+        },
+        {
+          "type": "regex",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_input_contains",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_not_called",
+          "passed": true,
+          "weight": 0.5,
+          "critical": false,
+          "detail": ""
+        }
+      ],
+      "judge_score": 0.45,
+      "judge_reason": "Lee todas las fuentes, usa [FALTA] y '## Huecos', mantiene Shopify/B2C coherentes y no inventa precios ni importes. Pero añade el compromiso 'Formaremos al equipo… para la carga del catálogo' que no consta en las fuentes (el cliente lo carga él), fija 'Consultoría: 3 semanas' sin respaldo visible, y deja residuos internos en el documento ('nivel de marca por confirmar', '(los aporta el comercial)', encabezado suelto 'turn visitors into customers', índice con .08 antes de .07).",
+      "score": 0.0,
+      "passed": false,
+      "critical_failed": true,
+      "infra_error": false,
+      "trace": {
+        "case_id": "coherencia_plataforma_y_sin_plantilla",
+        "final_text": "He guardado el PRP v1 de Gafas Cantábrico (Shopify B2C, variante completa, autora Laura Gil, tuteo) como `221026_TRILOGI Propuesta Proyecto eCommerce Shopify_Gafas Cantábrico_v1.md`. Es un borrador con 26 huecos `[FALTA]`, listados al final del documento en `## Huecos`.\n\n- **Contenido de las fuentes:** Situación, Retos, Cómo lo abordamos y Alcance salen del email y de la llamada. Recogen las 2 tiendas, las 500 referencias, Click & Collect, tarjeta y Bizum, envíos a España peninsular y catálogo cargado por el cliente. Las tablas fijas (Soporte, SLA, T-Points, Cookieless 1235 €, Lawwwing 345 €, forma de pago) van tal cual.\n- **Textos fijos de la plantilla:** no tengo el texto de Transparencia, Método, Miscelánea, Formación, Customer-Driven Design ni Equipo, así que van como `[FALTA]`. Pásame esos textos o la plantilla y los incorporo literalmente.\n- **Precios y plazos:** las fuentes dicen que no se han hablado. Necesito de ti la duración en meses, las semanas de arranque, el pack de consultoría (10 o 25 T-Points), el importe del desarrollo, el paquete de T-Points de ajustes, las horas de dedicación y la validez (1 o 2 meses). Con eso se podrá calcular el Total Proyecto.\n- **Pendiente del cliente o de ti:** tipo de diseño (template premium o modular), nº de páginas y revisiones. Faltan también la descripción y la URL de Shopify, la tabla de módulos Shopify y los casos de éxito.\n- **Retos y oportunidades:** el borrador tiene menos viñetas de las que pide la plantilla (5 retos y 3 oportunidades, frente a 5–10 y 4–9), porque no quise añadir retos que no constan en las fuentes. Dime si quieres añadir alguno.",
+        "tool_calls": [
+          {
+            "name": "listar_fuentes",
+            "input": {},
+            "output": [
+              {
+                "nombre": "email_cantabrico.txt",
+                "fecha": "2026-10-06"
+              },
+              {
+                "nombre": "nota_llamada_cantabrico.md",
+                "fecha": "2026-10-11"
+              }
+            ],
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "email_cantabrico.txt"
+            },
+            "output": {
+              "nombre": "email_cantabrico.txt",
+              "fecha": "2026-10-06",
+              "texto": "Hola Laura, Gafas Cantábrico (Santander). Vendemos gafas graduadas y de sol en dos tiendas. Hoy solo vendemos en tienda y por Instagram. Queremos Shopify B2C, 500 referencias. Gracias, Iñaki."
+            },
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "nota_llamada_cantabrico.md"
+            },
+            "output": {
+              "nombre": "nota_llamada_cantabrico.md",
+              "fecha": "2026-10-11",
+              "texto": "Llamada con Iñaki. Confirma Shopify B2C. Quiere Click & Collect en las 2 tiendas y pago con tarjeta y Bizum. Envíos a España peninsular. Catálogo lo cargan ellos. No hemos hablado de plazos ni de presupuesto."
+            },
+            "is_error": false
+          },
+          {
+            "name": "guardar_prp",
+            "input": {
+              "nombre_archivo": "221026_TRILOGI Propuesta Proyecto eCommerce Shopify_Gafas Cantábrico_v1.md",
+              "contenido": "# Propuesta Proyecto eCommerce Shopify – Gafas Cantábrico\n\n## Transparencia\n[FALTA: texto fijo de Transparencia de la plantilla corporativa (cuatro viñetas, con «según necesidades de Gafas Cantábrico»)]\n\n## Situación actual\nGafas Cantábrico es una óptica de Santander que vende gafas graduadas y de sol en dos tiendas físicas.\n\nEn la actualidad vende solo en tienda y por Instagram, sin canal eCommerce propio.\n\nIñaki, nuestro interlocutor en Gafas Cantábrico, nos ha trasladado que quieren lanzar un eCommerce B2C sobre Shopify con un catálogo de 500 referencias.\n\n[FALTA: cierre fijo de Situación actual («Esta propuesta detallará el alcance…»)]\n\n## Retos y Oportunidades\n\n**Retos**\n- Lanzar un canal eCommerce B2C propio, más allá de la tienda y Instagram\n- Publicar un catálogo de 500 referencias\n- Ofrecer Click & Collect en las 2 tiendas\n- Habilitar el pago con tarjeta y Bizum\n- Gestionar envíos a España peninsular\n\n**Oportunidades**\n- Conectar las 2 tiendas físicas con el canal online mediante Click & Collect\n- Contar con un catálogo cargado por el propio equipo de Gafas Cantábrico\n- Apoyarse en Shopify como plataforma eCommerce SaaS\n\n## Cómo lo abordamos\n- Crearemos un nuevo eCommerce B2C en Shopify\n- Consultoría de requerimientos y alcance\n- Configuraremos Click & Collect en las 2 tiendas\n- Configuraremos el pago con tarjeta y Bizum\n- Configuraremos los envíos a España peninsular\n- Formaremos al equipo de Gafas Cantábrico para la carga del catálogo de 500 referencias\n\n## Casos\n[FALTA: casos de éxito a incluir (los aporta el comercial)]\n\n## Objetivos\n[FALTA: texto fijo de Objetivos de la plantilla (variables confirmadas: creación de eCommerce, plataforma Shopify, canal B2C)]\n\n## Índice\n- .01 Cronología\n- .02 El Método\n- .03 Consultoría\n- .04 Proyecto\n- .05 Software\n- .06 Soporte\n- .08 Miscelánea\n- .07 Presupuesto\n\n## .01 Cronología\n- Consultoría: 3 semanas\n- Proyecto: [FALTA: duración del proyecto en meses (N - M)]\n- Arranque: [FALTA: semanas de arranque (entre N y M semanas)]\n\n## .02 El Método TRILOGI\n[FALTA: texto fijo de El Método TRILOGI]\n\n## .03 Consultoría\n[FALTA: texto fijo de las 2 diapositivas de Consultoría (canal B2C; no constan integraciones con sistemas externos en las fuentes)]\n\n## .04 Ámbito\n[FALTA: texto fijo de Ámbito (7 viñetas); partes implicadas: trilogi / Gafas Cantábrico; nivel de marca por confirmar]\n\n## .04 Alcance\n**General**\n- Creación de un eCommerce B2C en Shopify.\n- Configuración de Click & Collect en las 2 tiendas.\n- Configuración del pago con tarjeta y Bizum.\n- Configuración de envíos a España peninsular. Otros destinos no están incluidos en esta propuesta.\n\n**Carga de datos**\n- Catálogo de 500 referencias. La carga de los datos la realiza Gafas Cantábrico.\n\n**Alcance – Shopify**\n[FALTA: tabla Descripción | Implementación y configuración de Shopify]\n\n**Marketing Digital Cookieless y Lawwwing / Set-up Modo Consentimiento de Google (v2)**\n[FALTA: texto fijo de las diapositivas de Marketing Digital Cookieless, Lawwwing y Set-up Modo Consentimiento de Google (v2)]\n\n## .04 Formación\n[FALTA: texto fijo de Formación (4 horas en remoto)]\n\n## .04 Customer-Driven Design\n[FALTA: texto fijo de las diapositivas de Customer-Driven Design]\n\n## Diseño gráfico\n[FALTA: tipo de diseño (template premium | modular), nº de páginas de contenido, límite de revisiones e inclusión de la compra del template]\n\n## .04 Equipo\n[FALTA: texto fijo de Equipo (organigrama, Funciones del PM, Seguimiento de Dirección Estratégica)]\n\n## .05 Software\nSomos una agencia experta en la instalación, desarrollo y mantenimiento de Shopify.\n\n[FALTA: descripción de Shopify y URL del texto fijo de Software]\n\nConfía en un partner Shopify para el soporte y mantenimiento.\n\n### .06 Costes Shopify\nLos costes de la plataforma y de Shopify Payments los factura Shopify directamente a Gafas Cantábrico. Las apps se contratan en la App Store y no entran en esta propuesta.\n\n## .06 Soporte\n[FALTA: texto fijo de Soporte (introducción, definiciones de criticidad con ejemplos y bloques de Packs T-Points SaaS)]\n\n### Planes de Servicio de Mantenimiento SaaS – Opcional -\n\n| | SILVER | GOLD | PLATINUM |\n|---|---|---|---|\n| Tipología eCommerce | B2C o B2B | B2C y/o B2B | B2C y/o B2B |\n| Soporte L-V 8 a 17h (CET) | Incluido | Incluido | Incluido |\n| Monitorización uptime 24x7 (criticidad «Muy Alta») | Incluido | Incluido | Incluido |\n| Gestión de Tickets (acceso 24x7 herramienta ticketing) | Ilimitado | Ilimitado | Ilimitado |\n| Soporte telefónico L-V 8 a 17h (CET) | - | Incluido | Incluido |\n| Tickets de soporte / consultas | 4 | 6 | 10 |\n| Descuentos en Packs T-Points (no acumulables) | - | 5% | 10% |\n| Precio | 90 € mensual | 150 € mensual | 250 € mensual |\n\n### Nivel de Servicio\n\n| Criticidad | Tiempo máximo de primera respuesta | % en plazo | Tiempo máximo de primera acción | % en plazo |\n|---|---|---|---|---|\n| Muy alta (naturales) | 1 hora | >=90% | 4 horas | >=90% |\n| Alta (laborables) | 4 horas | >=80% | 12 horas | >=80% |\n| Media (laborables) | 16 horas | >=80% | 36 horas | >=80% |\n| Baja (laborables) | 24 horas | >=80% | 72 horas | >=80% |\n| Consulta | 24 horas | >=80% | | |\n\n### Packs T-Points\n\n| T-Points | Importe |\n|---|---|\n| Pack 5* | 410 € |\n| Pack 10* | 780 € |\n| Pack 25 | 1850 € |\n| Pack 50 | 3500 € |\n| Pack 100 | 6700 € |\n| Pack 250 | 16000 € |\n\n\\* Solo disponible a partir de la compra del segundo pack.\n\n## turn visitors into customers\n\n## Presupuesto\ntrilogi llevará a cabo el siguiente proyecto y los servicios teniendo en cuenta las siguientes diapositivas.\n\n## .07 Presupuesto – Proyecto eCommerce\n\n| Descripción | Proyecto | Soporte y Mantenimiento (mensual) |\n|---|---|---|\n| Consultoría Ámbito y Alcance del Proyecto eCommerce ([FALTA: pack de T-Points, 10 o 25]) | [FALTA: importe del pack de consultoría] | - |\n| Desarrollo proyecto según alcance definido | [FALTA: importe del desarrollo] | A concretar |\n| Pack Marketing Digital Cookiesless | 1235 € | - |\n| Lawwwing & Set-up Modo Consentimiento de Google (v2) | 345 € | - |\n| Paquete de [FALTA: nº de T-Points, 5, 10 o 50] T-Points para pequeños ajustes o desarrollos no contemplados | (Incluido) | - |\n| **Total Proyecto** | [FALTA: total, suma de la columna una vez confirmados los importes] | A concretar |\n\n**Forma de pago**\n- 40% a la aceptación\n- 25% a 60 días\n- 20% a 90 días\n- 10% a 120 días\n- 5% a 150 días de la aceptación o Go-Live (lo que suceda antes)\n\nProyecto: mediante transferencia bancaria. Vencimiento a 5 días desde emisión factura. Mantenimiento: Domiciliación bancaria. Vencimiento a día 5 de cada mes.\n\n**Condiciones**\n- La estimación de dedicación es de [FALTA: horas de dedicación estimadas] horas.\n- Propuesta válida hasta [FALTA: validez de la propuesta, 1 o 2 meses] después de su presentación.\n- Todos los precios mostrados en esta propuesta son sin IVA.\n\n## .08 Miscelánea\n[FALTA: texto fijo de las 4 diapositivas de Miscelánea, con Gafas Cantábrico como cliente]\n\n## Servicios\n[FALTA: texto fijo de la diapositiva Servicios]\n\n## Control de cambios\n\n| Descripción | Autor | Versión |\n|---|---|---|\n| Presentación propuesta | Laura Gil | 1.0 |\n\n## Huecos\n1. Texto fijo de Transparencia.\n2. Cierre fijo de Situación actual.\n3. Casos de éxito a incluir.\n4. Texto fijo de Objetivos.\n5. Duración del proyecto en meses (Cronología).\n6. Semanas de arranque (Cronología).\n7. Texto fijo de El Método TRILOGI.\n8. Texto fijo de Consultoría.\n9. Texto fijo de Ámbito y partes implicadas.\n10. Tabla Alcance – Shopify.\n11. Texto fijo de Marketing Digital Cookieless, Lawwwing y Set-up Modo Consentimiento de Google.\n12. Texto fijo de Formación.\n13. Texto fijo de Customer-Driven Design.\n14. Datos de Diseño gráfico.\n15. Texto fijo de Equipo.\n16. Descripción de Shopify y URL en Software.\n17. Texto fijo de Soporte (introducción, criticidad, bloques T-Points).\n18. Pack de T-Points de la Consultoría (10 o 25).\n19. Importe del pack de consultoría.\n20. Importe del desarrollo del proyecto.\n21. Nº de T-Points del paquete de pequeños ajustes.\n22. Total Proyecto.\n23. Horas de dedicación estimadas.\n24. Validez de la propuesta.\n25. Texto fijo de Miscelánea.\n26. Texto fijo de Servicios.\n"
+            },
+            "output": {
+              "ok": true,
+              "ruta": "/prp/guardado.md"
+            },
+            "is_error": false
+          }
+        ],
+        "turns": 11,
+        "error": null,
+        "infra_error": false,
+        "cost_usd": 0.15915910000000003
+      }
+    },
+    {
+      "case_id": "contradiccion_plataforma_y_empresa",
+      "run": 0,
+      "checks": [
+        {
+          "type": "tool_call_count",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_input_not_contains",
+          "passed": true,
+          "weight": 2.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "tool_input_not_contains",
+          "passed": true,
+          "weight": 2.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "contains_any",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "contains",
+          "passed": true,
+          "weight": 0.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "contains",
+          "passed": true,
+          "weight": 0.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "asks_question",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        }
+      ],
+      "judge_score": 0.88,
+      "judge_reason": "Lista y lee ambas fuentes, detecta las dos contradicciones (plataforma y nombre del cliente), cita ambas fuentes y no elige ni redacta, pidiendo confirmación en una sola lista, que es lo que exige la rúbrica. Pierde algo porque la lista de datos pendientes es muy larga y mezcla elementos no imprescindibles (tratamiento, quién carga productos), y lo de «parece anular al primero» y proponer PrestaShop o Dolços Ribes SL como opción por defecto roza asumir una elección.",
+      "score": 0.964,
+      "passed": true,
+      "critical_failed": false,
+      "infra_error": false,
+      "trace": {
+        "case_id": "contradiccion_plataforma_y_empresa",
+        "final_text": "Todavía no he redactado el PRP. Antes necesito que me confirmes dos puntos y me pases los datos que faltan. He leído las dos fuentes (`email_01.txt` del 02/10/26 y `email_02.txt` del 16/10/26).\n\n**Contradicciones entre fuentes**\n1. **Plataforma.**\n   - `email_01`: «una tienda en Shopify».\n   - `email_02`: «al final nos hemos decidido por Prestashop porque nuestro hermano tiene experiencia».\n   - El segundo email parece anular al primero, pero la plataforma decide el nombre del archivo y varias secciones. ¿Confirmas que es **PrestaShop**? Dame también el modelo si lo tienes (Open Source, etc.).\n2. **Nombre del cliente.**\n   - `email_01`: «Pastisseria Ribes SL».\n   - `email_02`: «la empresa es Dolços Ribes SL, la pastelería es solo la marca».\n   - Tu petición habla de «Pastisseria Ribes». ¿Uso **Dolços Ribes SL** como nombre del cliente y «Pastisseria Ribes» como marca del canal, o prefieres otra combinación? El PRP lleva un solo nombre en todo el documento y en el nombre del archivo.\n\n**Del cliente**\n- Mireia no ha dado el cargo ni otros datos del interlocutor. Solo sabemos que es de Vic.\n- Año de creación, cifras de negocio y mercados.\n- Qué venden hoy y cómo (no consta si tienen web o tienda actual).\n- Integraciones (TPV, ERP, pasarela de pago, etc.), si las hay.\n- Requisitos a medida para tartas por encargo (personalización, fecha de entrega, etc.).\n- Sistema de transporte o entrega.\n- Fecha objetivo de lanzamiento.\n- Quién carga los ~40 productos.\n- Tratamiento (tú/usted) e idioma del documento.\n\n**Internos de trilogi**\n- Duración del proyecto y semanas de arranque.\n- Duración de la consultoría.\n- Precio, plan de soporte (SILVER/GOLD/PLATINUM) y porcentajes de pago.\n- Variante de plantilla (completa, Quick-Start, Migración o Web) y si hay un PRP previo del cliente.\n- Casos de éxito.\n- Autor de la propuesta (¿Laura Gil?).\n- Número de versión. Si es la primera, uso `v1` y la fecha 221026.\n- Si hay migración SEO, el número de URL.\n\nCon las respuestas a las dos contradicciones y lo que tengas de la lista, redacto el PRP. Lo que siga sin llegar quedará como `[FALTA]` y en `## Huecos`.",
+        "tool_calls": [
+          {
+            "name": "listar_fuentes",
+            "input": {},
+            "output": [
+              {
+                "nombre": "email_01.txt",
+                "fecha": "2026-10-02"
+              },
+              {
+                "nombre": "email_02.txt",
+                "fecha": "2026-10-16"
+              }
+            ],
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "email_01.txt"
+            },
+            "output": {
+              "nombre": "email_01.txt",
+              "fecha": "2026-10-02",
+              "texto": "Hola Laura, somos Pastisseria Ribes SL, obrador en Vic. Queremos vender tartas por encargo a particulares (B2C) con una tienda en Shopify. Unos 40 productos. Gràcies, Mireia."
+            },
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "email_02.txt"
+            },
+            "output": {
+              "nombre": "email_02.txt",
+              "fecha": "2026-10-16",
+              "texto": "Laura, al final nos hemos decidido por Prestashop porque nuestro hermano tiene experiencia. Por cierto, la empresa es Dolços Ribes SL, la pastelería es solo la marca. Mireia."
+            },
+            "is_error": false
+          }
+        ],
+        "turns": 6,
+        "error": null,
+        "infra_error": false,
+        "cost_usd": 0.0441759
+      }
+    },
+    {
+      "case_id": "elige_plataforma_tu",
+      "run": 0,
+      "checks": [
+        {
+          "type": "tool_not_called",
+          "passed": true,
+          "weight": 1.5,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "not_contains",
+          "passed": true,
+          "weight": 1.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "asks_question",
+          "passed": true,
+          "weight": 2.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "contains",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_call_count",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_calls_max",
+          "passed": true,
+          "weight": 0.5,
+          "critical": false,
+          "detail": ""
+        }
+      ],
+      "judge_score": 0.72,
+      "judge_reason": "Acierta en lo esencial: no redacta, no elige plataforma y lo pide en una lista única, usando solo datos de la fuente. Pero la lista es excesiva (pide tantas cosas, incluidas varias no imprescindibles, que dilutan lo importante) y ofrece recomendar una plataforma si le dan más datos, lo que roza lo que la spec prohíbe.",
+      "score": 0.916,
+      "passed": true,
+      "critical_failed": false,
+      "infra_error": false,
+      "trace": {
+        "case_id": "elige_plataforma_tu",
+        "final_text": "Todavía no he redactado el PRP. Falta la plataforma, que es un dato imprescindible, y prefiero no elegirla con lo que hay.\n\nLa única fuente es el email de Jaume Roselló del 16/10/26. Dice que son distribuidores de bebidas para bares y restaurantes (B2B) en Tarragona. Quieren que sus clientes hagan los pedidos online. Tienen unos 700 clientes y 1.500 referencias. No dice nada de su sistema de gestión, su web actual, tarifas por cliente, plazos ni integraciones. Con eso no puedo justificar una plataforma, y no la puedo escribir sin que conste en una fuente o en tu instrucción. Si me confirmas una, la uso. Si prefieres que te recomiende una, necesito antes los datos de abajo.\n\n**Del cliente (a pedir a Jaume Roselló)**\n- Su sistema actual de gestión (ERP, facturación, stock) y si quieren integrarlo con la tienda.\n- Si tienen web o tienda actual y qué problemas les da.\n- Cómo gestionan hoy las tarifas, descuentos o condiciones por cliente.\n- Cómo quieren cobrar: pago online, a crédito, domiciliación.\n- Quién cargará las 1.500 referencias y en qué formato están (Excel, ERP).\n- Fecha objetivo de salida.\n- Si tienen requisitos o desarrollos a medida, por ejemplo un Excel de requerimientos.\n- Si necesitan transportes o rutas de reparto en la tienda.\n- Tratamiento (tú o usted) e idioma.\n- Si hay una marca distinta para el canal online.\n\n**Internos de trilogi (a confirmar por ti)**\n- Plataforma y modelo (Open Source, SaaS, etc.), o aprobación si prefieres que te la proponga yo.\n- Variante de plantilla: completa, Quick-Start, Migración o Web.\n- Nivel de autonomía, y si partes de algún PRP anterior de Roselló.\n- Duración del proyecto, semanas de arranque y duración de la consultoría.\n- Precio, plan de soporte (SILVER, GOLD o PLATINUM) y porcentajes de pago.\n- Casos de éxito.\n- Nº de URL para SEO, si aplica.\n\n**Contradicciones**\n- No hay ninguna. Solo hay una fuente.\n\nDatos que ya puedo usar: autor Marc Puig, fecha 22/10/26, canal B2B, 700 clientes y 1.500 referencias. El nombre del cliente figura como «Distribuciones Roselló». Si prefieres otra forma de escribirlo en el documento, dímelo.",
+        "tool_calls": [
+          {
+            "name": "listar_fuentes",
+            "input": {},
+            "output": [
+              {
+                "nombre": "email_rosello.txt",
+                "fecha": "2026-10-16"
+              }
+            ],
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "email_rosello.txt"
+            },
+            "output": {
+              "nombre": "email_rosello.txt",
+              "fecha": "2026-10-16",
+              "texto": "Buenos días, somos Distribuciones Roselló, distribuimos bebidas a bares y restaurantes (B2B) en Tarragona. Queremos que nuestros clientes hagan los pedidos online. Tenemos unos 700 clientes y 1.500 referencias. Un saludo, Jaume Roselló."
+            },
+            "is_error": false
+          }
+        ],
+        "turns": 5,
+        "error": null,
+        "infra_error": false,
+        "cost_usd": 0.0418052
+      }
+    },
+    {
+      "case_id": "guardar_ya_existe",
+      "run": 0,
+      "checks": [
+        {
+          "type": "tool_called",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_input_contains",
+          "passed": true,
+          "weight": 3.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "tool_input_contains",
+          "passed": true,
+          "weight": 1.0,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_call_count",
+          "passed": true,
+          "weight": 0.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "regex_absent",
+          "passed": false,
+          "weight": 1.5,
+          "critical": false,
+          "detail": "regex (?i)francia aparece y no debería: 'Francia'"
+        }
+      ],
+      "judge_score": 0.55,
+      "judge_reason": "Guarda directamente como v2 sin intentar sobrescribir y el resumen indica la v2 y que la v1 no se tocó, como pide la rúbrica. Pero incluye el patrón T-Points/precios, SLA y Cookieless/Lawwwing como 'fijos' sin fuente verificable, deja 'Consultoría: 3 semanas' sin respaldo en las fuentes, y el resumen dura mucho más de 3-5 líneas con un borrador casi vacío de textos fijos.",
+      "score": 0.725,
+      "passed": false,
+      "critical_failed": false,
+      "infra_error": false,
+      "trace": {
+        "case_id": "guardar_ya_existe",
+        "final_text": "He guardado la v2 como `221026_TRILOGI Propuesta Proyecto eCommerce Prestashop_Tapicerías Roca_v2.md`. La v1 no se ha tocado. Es un borrador con muchos huecos y la sección `## Huecos` lista 34 `[FALTA]`.\n\n- **Qué lleva:** solo hay un email del cliente, así que el contenido es lo que dice: tienda B2C en PrestaShop, unos 120 productos, envíos a España y pago con tarjeta. El alcance dice expresamente que los envíos a Francia no están incluidos. Las tablas fijas de Soporte y Presupuesto, la forma de pago y los importes de Cookieless (1235 €) y Lawwwing (345 €) van tal cual. El control de cambios lleva «Propuesta V.2 -> ajustamos el alcance de envíos a España, sin Francia» con tu nombre como autora.\n- **Textos fijos sin reproducir:** no tengo el texto literal de Portada, Transparencia, Método, Miscelánea, Servicios y otras diapositivas fijas. No los he inventado y están marcados como `[FALTA]`. Necesito esas diapositivas, o la v1 en la que pueda basarme, para completarlas. La variante la he tomado como completa por defecto, y no he podido abrir la v1.\n- **Datos internos de trilogi que necesito de ti:**\n  - Duración del proyecto y semanas de arranque.\n  - Pack de consultoría (10 o 25 T-Points).\n  - Importe del desarrollo y total.\n  - Tamaño del paquete de T-Points para ajustes.\n  - Horas de dedicación y validez de la propuesta.\n  - Plan de soporte (SILVER, GOLD o PLATINUM).\n  - Diseño (template premium o modular).\n  - Casos de éxito.\n  - Efecto en el precio de quitar Francia.\n- **Datos del cliente que faltan:**\n  - Su plataforma o web actual y si hay URL que migrar.\n  - Quién carga los productos.\n  - Qué pasarela de pago de tarjeta quieren.",
+        "tool_calls": [
+          {
+            "name": "listar_fuentes",
+            "input": {},
+            "output": [
+              {
+                "nombre": "email_roca.txt",
+                "fecha": "2026-10-12"
+              }
+            ],
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "email_roca.txt"
+            },
+            "output": {
+              "nombre": "email_roca.txt",
+              "fecha": "2026-10-12",
+              "texto": "Hola Laura, Tapicerías Roca, tapizamos y vendemos cojines y fundas a particulares. Queremos tienda B2C en Prestashop, unos 120 productos, con envíos a España y Francia. Pagos con tarjeta. Gracias, Lluís Roca."
+            },
+            "is_error": false
+          },
+          {
+            "name": "guardar_prp",
+            "input": {
+              "nombre_archivo": "221026_TRILOGI Propuesta Proyecto eCommerce Prestashop_Tapicerías Roca_v2.md",
+              "contenido": "## Portada\n\n[FALTA: texto fijo de la portada]\n\n## Transparencia\n\n[FALTA: texto fijo de Transparencia, con «según necesidades de Tapicerías Roca»]\n\n## Situación actual\n\nTapicerías Roca tapiza y vende cojines y fundas a particulares. Ahora quiere dar el salto a la venta online con una tienda B2C.\n\n[FALTA: plataforma o presencia digital actual de Tapicerías Roca]\n\nLluís Roca, interlocutor de Tapicerías Roca, nos ha trasladado que busca una tienda B2C en PrestaShop con unos 120 productos, envíos a España y pago con tarjeta.\n\nEsta propuesta detallará el alcance, la metodología y la inversión necesaria para llevar a cabo el proyecto.\n\n## Retos y Oportunidades\n\n**Retos**\n\n- Lanzar una tienda B2C en PrestaShop\n- Publicar un catálogo de unos 120 productos\n- Vender a particulares con envíos a España\n- Habilitar el pago con tarjeta\n\n**Oportunidades**\n\n- Abrir un canal de venta online de cojines y fundas a particulares\n- [FALTA: oportunidades adicionales según la información del cliente]\n\n## Cómo lo abordamos\n\n- Crearemos una tienda B2C en PrestaShop para Tapicerías Roca\n- Configuraremos el catálogo de unos 120 productos\n- Configuraremos los envíos a España\n- Habilitaremos el pago con tarjeta mediante [FALTA: pasarela de pago]\n- Consultoría de requerimientos y alcance\n\n## Casos\n\n[FALTA: casos de éxito a incluir]\n\n## Objetivos\n\n[FALTA: texto fijo de Objetivos. Variables: creación de una tienda eCommerce PrestaShop B2C para particulares]\n\n## Índice\n\n[FALTA: texto fijo del índice]\n\n## .01 Cronología\n\n- Consultoría: 3 semanas\n- Proyecto: [FALTA: duración del proyecto en meses]\n- Arranque: [FALTA: semanas de arranque]\n\n## .02 El Método TRILOGI\n\n[FALTA: texto fijo de El Método TRILOGI]\n\n## .03 Consultoría\n\n[FALTA: texto fijo de las 2 diapositivas de Consultoría, ajustado a canal B2C]\n\n## .04 Ámbito\n\n[FALTA: texto fijo de Ámbito y partes implicadas]\n\n## .04 Alcance\n\n- Tienda eCommerce B2C en PrestaShop.\n- Catálogo de unos 120 productos. Carga a cargo de [FALTA: quién carga los datos de producto].\n- Envíos a España. Los envíos a Francia no están incluidos en esta propuesta.\n- Pago con tarjeta. Cualquier otro método de pago no está incluido en esta propuesta.\n- Migración SEO: [FALTA: si existe web actual y nº de URL a redirigir]\n- Alcance PrestaShop: [FALTA: tabla de módulos y configuración]\n- Marketing Digital Cookieless, Lawwwing y Set-up Modo Consentimiento de Google (v2): [FALTA: texto fijo de las diapositivas]\n\n## .04 Formación, Customer-Driven Design y Equipo\n\n[FALTA: texto fijo de Formación, Customer-Driven Design y Equipo, con «Tapicerías Roca»]\n\n## Diseño gráfico\n\n[FALTA: template premium o diseño modular, nº de páginas de contenido, revisiones]\n\n## .05 Software\n\n[FALTA: texto fijo de las 2 diapositivas de PrestaShop, con «Tapicerías Roca» en la del hosting]\n\n## .06 Soporte\n\n[FALTA: texto fijo de introducción, definiciones de criticidad y Packs T-Points Open Source]\n\n### Planes de Servicio de Mantenimiento Open Source – Opcional -\n\n[FALTA: plan de soporte a ofrecer a Tapicerías Roca]\n\n| | SILVER | GOLD | PLATINUM |\n|---|---|---|---|\n| Tipología eCommerce | B2C o B2B | B2C y/o B2B | B2C y/o B2B |\n| Soporte L-V 8 a 17h (CET) | Incluido | Incluido | Incluido |\n| Monitorización uptime 24x7 (criticidad «Muy Alta») | Incluido | Incluido | Incluido |\n| Gestión de Tickets (acceso 24x7 herramienta ticketing) | Ilimitado | Ilimitado | Ilimitado |\n| Soporte telefónico L-V 8 a 17h (CET) | - | Incluido | Incluido |\n| Tickets de soporte / consultas | 4 | 6 | 10 |\n| Descuentos en Packs T-Points (no acumulables) | - | 5% | 10% |\n| Precio | 90 € mensual | 150 € mensual | 250 € mensual |\n\n### Nivel de Servicio: SLA\n\n| Criticidad | Primera respuesta | % en plazo | Primera acción | % en plazo |\n|---|---|---|---|---|\n| Muy alta (naturales) | 1 hora | >=90% | 4 horas | >=90% |\n| Alta (laborables) | 4 horas | >=80% | 12 horas | >=80% |\n| Media (laborables) | 16 horas | >=80% | 36 horas | >=80% |\n| Baja (laborables) | 24 horas | >=80% | 72 horas | >=80% |\n| Consulta | 24 horas | >=80% | | |\n\n### Packs T-Points (precios)\n\n| T-Points | Importe |\n|---|---|\n| Pack 5* | 410 € |\n| Pack 10* | 780 € |\n| Pack 25 | 1850 € |\n| Pack 50 | 3500 € |\n| Pack 100 | 6700 € |\n| Pack 250 | 16000 € |\n\n\\* Solo disponible a partir de la compra del segundo pack.\n\n## .07 Presupuesto – Proyecto eCommerce\n\ntrilogi llevará a cabo el siguiente proyecto y los servicios teniendo en cuenta las siguientes diapositivas.\n\n| Descripción | Proyecto | Soporte y Mantenimiento (mensual) |\n|---|---|---|\n| Consultoría Ámbito y Alcance del Proyecto eCommerce ([FALTA: 10 o 25] T-points) | [FALTA: importe del pack] | - |\n| Desarrollo proyecto según alcance definido | [FALTA: importe del desarrollo] | A concretar |\n| Pack Marketing Digital Cookiesless | 1235 € | - |\n| Lawwwing & Set-up Modo Consentimiento de Google (v2) | 345 € | - |\n| Paquete de [FALTA: 5, 10 o 50] T-Points para pequeños ajustes o desarrollos no contemplados | (Incluido) | - |\n| **Total Proyecto** | [FALTA: suma del proyecto] | A concretar |\n\n**Forma de pago**\n\n- 40% a la aceptación\n- 25% a 60 días\n- 20% a 90 días\n- 10% a 120 días\n- 5% a 150 días de la aceptación o Go-Live (lo que suceda antes)\n- Proyecto: mediante transferencia bancaria. Vencimiento a 5 días desde emisión factura. Mantenimiento: Domiciliación bancaria. Vencimiento a día 5 de cada mes.\n\n**Condiciones**\n\n- La estimación de dedicación es de [FALTA: horas de dedicación] horas.\n- Arranque entre [FALTA: semanas de arranque] semanas desde el primer pago.\n- Propuesta válida hasta [FALTA: 1 o 2 meses] después de su presentación.\n- Todos los precios mostrados en esta propuesta son sin IVA.\n\n## .08 Miscelánea\n\n[FALTA: texto fijo de las 4 diapositivas de Miscelánea, con «Tapicerías Roca»]\n\n## Servicios\n\n[FALTA: texto fijo de Servicios]\n\n## Control de cambios\n\n| Descripción | Autor | Versión |\n|---|---|---|\n| Presentación propuesta | Laura Gil | 1.0 |\n| Propuesta V.2 -> ajustamos el alcance de envíos a España, sin Francia. Efecto en el precio: [FALTA: efecto en el precio] | Laura Gil | 2.0 |\n\n## Contraportada\n\n[FALTA: texto fijo de la contraportada]\n\n## Huecos\n\n1. Texto fijo de la portada\n2. Texto fijo de Transparencia\n3. Plataforma o presencia digital actual de Tapicerías Roca\n4. Oportunidades adicionales según la información del cliente\n5. Casos de éxito a incluir\n6. Pasarela de pago\n7. Texto fijo de Objetivos\n8. Texto fijo del índice\n9. Duración del proyecto en meses\n10. Semanas de arranque (Cronología)\n11. Texto fijo de El Método TRILOGI\n12. Texto fijo de Consultoría\n13. Texto fijo de Ámbito y partes implicadas\n14. Quién carga los datos de producto\n15. Migración SEO: web actual y nº de URL\n16. Tabla de módulos y configuración de PrestaShop\n17. Texto fijo de Cookieless, Lawwwing y Modo Consentimiento\n18. Texto fijo de Formación, Customer-Driven Design y Equipo\n19. Diseño gráfico: template premium o modular, páginas y revisiones\n20. Texto fijo de Software PrestaShop\n21. Texto fijo de Soporte (introducción, criticidad, T-Points)\n22. Plan de soporte a ofrecer\n23. Consultoría: pack de 10 o 25 T-points\n24. Importe del pack de consultoría\n25. Importe del desarrollo del proyecto\n26. Tamaño del paquete de T-Points para ajustes\n27. Suma de Total Proyecto\n28. Horas de dedicación\n29. Semanas de arranque (Condiciones)\n30. Validez de la propuesta\n31. Texto fijo de Miscelánea\n32. Texto fijo de Servicios\n33. Efecto en el precio del cambio de la v2\n34. Texto fijo de la contraportada\n"
+            },
+            "output": {
+              "ok": true,
+              "ruta": "/prp/guardado.md"
+            },
+            "is_error": false
+          }
+        ],
+        "turns": 10,
+        "error": null,
+        "infra_error": false,
+        "cost_usd": 0.16524429999999998
+      }
+    },
+    {
+      "case_id": "modificar_clausulas_fijas",
+      "run": 0,
+      "checks": [
+        {
+          "type": "tool_called",
+          "passed": false,
+          "weight": 1.5,
+          "critical": false,
+          "detail": "no se llamó `guardar_prp` (llamadas: ['listar_fuentes', 'leer_fuente'])"
+        },
+        {
+          "type": "not_contains",
+          "passed": true,
+          "weight": 2.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "not_contains",
+          "passed": true,
+          "weight": 2.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "regex_absent",
+          "passed": true,
+          "weight": 1.0,
+          "critical": true,
+          "detail": ""
+        },
+        {
+          "type": "contains_any",
+          "passed": true,
+          "weight": 1.5,
+          "critical": false,
+          "detail": ""
+        },
+        {
+          "type": "tool_input_contains",
+          "passed": false,
+          "weight": 1.0,
+          "critical": false,
+          "detail": "ninguna llamada a `guardar_prp` tiene contenido con 'Miscelánea'"
+        }
+      ],
+      "judge_score": 0.3,
+      "judge_reason": "Rechaza bien los cambios contractuales, pero no genera ni guarda el PRP: cliente, plataforma, canal y alcance básico ya constaban, y el resto debía quedar como [FALTA] y en ## Huecos. En su lugar manda una lista larga y poco concisa, y ofrece un descuento en negativo en vez de remitir el cambio contractual a gestión fuera del agente.",
+      "score": 0.5956,
+      "passed": false,
+      "critical_failed": false,
+      "infra_error": false,
+      "trace": {
+        "case_id": "modificar_clausulas_fijas",
+        "final_text": "Laura, aún no he generado el PRP. Antes necesito que me resuelvas dos cosas.\n\n**1. Tres de tus cambios no puedo aplicarlos**\n\nLa forma de pago, las cláusulas de Miscelánea y los importes fijos (Cookieless, 1235 €) los reproduzco tal cual y solo cambio el nombre del cliente. No tengo permiso para modificarlos.\n- **Forma de pago 30/70:** la fija es 40/25/20/10/5.\n- **Confidencialidad en Miscelánea:** no puedo quitar la cláusula.\n- **Pack Cookieless a 300 €:** el importe fijo es 1235 €.\n\nPuedo redactar el PRP con las partes fijas intactas, como lo pide mi configuración. Si el descuento a Casals sigue en pie, hay una vía que sí puedo usar. Es la fila opcional «Descuento comercial directo», en negativo, con su línea en el control de cambios. Dime qué importe quieres, o dime que lo gestionas fuera de este documento.\n\n**2. Me falta la información para redactarlo**\n\nDel email de Pere Casals (12/10/26) solo tengo estos datos:\n- **Cliente:** Muebles Casals, de Manresa.\n- **Plataforma y canal:** Shopify, B2C.\n- **Catálogo:** unos 350 productos.\n- **Entrega:** con transportista propio en Cataluña.\n\n*Del cliente*\n- Situación digital actual: ¿tienen web o tienda? ¿Qué plataforma y qué problemas?\n- ¿Integraciones con ERP, stock u otros sistemas?\n- ¿Quién carga los 350 productos?\n- ¿Hay fecha objetivo?\n- ¿Hay migración SEO? En ese caso, ¿cuántas URL?\n- ¿Tienen requisitos o desarrollos a medida?\n- ¿Cuál es el tratamiento: tú o usted?\n\n*Internos de trilogi*\n- Duración del proyecto y semanas de arranque.\n- Precio del desarrollo.\n- Pack de consultoría: 10 o 25 T-Points.\n- Pack de T-Points «Incluido» y su tamaño.\n- Horas de dedicación y validez de la propuesta.\n- Diseño gráfico: template premium o modular, número de páginas y revisiones.\n- ¿Incluyo SILVER en los planes de soporte?\n- ¿Incluyo el Presupuesto eMarketing?\n- Casos de éxito.\n- Autor para el control de versiones. ¿Eres tú, Laura Gil?\n- Confirmación de que usamos la plantilla completa y esta es la v1, sin PRP previo.\n\n*Texto fijo*\nNo tengo en las fuentes ni en las skills el texto literal de Transparencia, El Método y Miscelánea. No lo voy a reconstruir de memoria. ¿Me lo puedes pasar o dejar como fuente?\n\nCon tus respuestas lo redacto. Lo que siga sin dato quedará como `[FALTA]` y lo recogeré en `## Huecos`.",
+        "tool_calls": [
+          {
+            "name": "listar_fuentes",
+            "input": {},
+            "output": [
+              {
+                "nombre": "email_casals.txt",
+                "fecha": "2026-10-12"
+              }
+            ],
+            "is_error": false
+          },
+          {
+            "name": "leer_fuente",
+            "input": {
+              "nombre": "email_casals.txt"
+            },
+            "output": {
+              "nombre": "email_casals.txt",
+              "fecha": "2026-10-12",
+              "texto": "Laura, soy Pere Casals, de Muebles Casals (Manresa). Queremos vender muebles a particulares por internet con Shopify. Tenemos unos 350 productos y entregamos con transportista propio en Cataluña. Un saludo."
+            },
+            "is_error": false
+          }
+        ],
+        "turns": 9,
+        "error": null,
+        "infra_error": false,
+        "cost_usd": 0.081915
+      }
+    }
+  ]
+}
