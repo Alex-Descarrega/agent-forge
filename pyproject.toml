@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-forge"
+version = "0.1.0"
+description = "Afinado de agentes Claude mediante evals: entrevista, tests, bucle de mejora y paquete portátil."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+api = ["anthropic>=0.40"]
+sdk = ["anthropic>=0.40", "claude-agent-sdk"]
+
+[project.scripts]
+forge = "forge.cli:main"
+
+[tool.setuptools]
+packages = ["forge"]
+
+[tool.setuptools.package-data]
+forge = ["roles/*.md"]

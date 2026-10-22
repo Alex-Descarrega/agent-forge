@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+_export/
+*-agent.zip
+# workspaces de agentes: contienen muestras de clientes y specs; se versionan aparte si se quiere
+/mi-agente/
+/*/samples/.text/
+/*/runs/
+/*/versions/
+/*/chats/
+/*/_export/
+examples/*/runs/
+examples/*/versions/
+examples/*/chats/
+examples/*/evals/raw_*.txt
