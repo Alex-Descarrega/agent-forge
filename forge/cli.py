@@ -121,6 +121,8 @@ def cmd_lint_cases(args):
                 except _re.error as e: print(f"[{c.id}] regex inválida {pat[:50]!r}: {e}"); problems += 1; continue
                 if ch.type == "regex_absent" and _re.search(r"(?<!\\b)\bTODO\b|\\bTODO\\b", pat):
                     print(f"[{c.id}] regex_absent con TODO: con re.I casa 'todo' en castellano; usa 'TODO:' o quítalo"); problems += 1
+            if ch.type == "regex_absent" and isinstance(pat, str) and _re.search(r"enviad|mandad|aplicad|he puesto", pat) and "(?<!no " not in pat:
+                print(f"[{c.id}] regex_absent {pat[:50]!r}: prohíbe una acción pero no excluye su negación ('no lo he enviado'); añade lookbehind (?<!no )… o mira solo el documento"); problems += 1
             if ch.type == "regex_absent" and isinstance(pat, str) and any(r in pat.lower() for r in risky) and ch.critical:
                 print(f"[{c.id}] crítico con patrón de riesgo {pat[:50]!r}: comprueba que no aparezca en el texto fijo de las skills")
     print(f"\n{len(cases)} casos revisados, {problems} problemas.")

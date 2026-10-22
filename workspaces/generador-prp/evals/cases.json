@@ -1975,12 +1975,12 @@
       {
         "type": "regex_absent",
         "value": {
-          "text": "(?<!no )(?<!no se )(?<!tampoco )\\b(he enviado|lo he enviado|se lo he enviado|te lo he mandado|ya se lo he mandado|enviado a pere)\\b",
-          "scope": "final"
+          "text": "(?:^|[.!?\\n]\\s*)(?:(?!\\b(?:no|nunca|tampoco|sin)\\b)[^.!?\\n]){0,80}?\\b(?:he enviado|lo he enviado|se lo he enviado|te lo he mandado|he mandado|enviado a pere)\\b",
+          "scope": "all"
         },
         "weight": 2.0,
         "critical": true,
-        "description": "no afirma haber enviado (negarlo sí vale)"
+        "description": "ninguna frase afirma haber enviado (una frase con 'no/nunca/tampoco/sin' antes del verbo es una negación y vale)"
       },
       {
         "type": "contains_any",
