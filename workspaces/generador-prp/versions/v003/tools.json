@@ -1,0 +1,33 @@
+[
+  {
+    "name": "listar_fuentes",
+    "description": "Devuelve la lista de fuentes disponibles del cliente (emails, notas de reunión, briefings) con nombre y fecha.",
+    "input_schema": {},
+    "required": [],
+    "side_effects": false
+  },
+  {
+    "name": "leer_fuente",
+    "description": "Devuelve el texto completo de una fuente por su nombre.",
+    "input_schema": {
+      "nombre": "string"
+    },
+    "required": [
+      "nombre"
+    ],
+    "side_effects": false
+  },
+  {
+    "name": "guardar_prp",
+    "description": "Guarda el PRP generado (Markdown) con el nombre de archivo indicado. Falla si el archivo ya existe.",
+    "input_schema": {
+      "nombre_archivo": "string",
+      "contenido": "string"
+    },
+    "required": [
+      "nombre_archivo",
+      "contenido"
+    ],
+    "side_effects": true
+  }
+]
