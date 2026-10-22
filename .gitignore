@@ -15,3 +15,6 @@ examples/*/runs/
 examples/*/versions/
 examples/*/chats/
 examples/*/evals/raw_*.txt
+
+# PRP crudos usados para extraer textos fijos (datos de cliente): no se versionan
+workspaces/*/raw/
