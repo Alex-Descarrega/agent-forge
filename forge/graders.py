@@ -244,7 +244,7 @@ def judge(llm: LLM, spec: AgentSpec, case: TestCase, trace: Trace) -> tuple[floa
         for c in trace.tool_calls) or "(ninguna)"
     prompt = (
         f"ESPECIFICACIÓN:\nObjetivo: {spec.objective}\nCriterios de éxito: {spec.success_criteria}\n"
-        f"Nunca: {spec.never_do}\nTono: {spec.tone}\nMetodología: {spec.methodology}\n"
+        f"Nunca: {spec.never_do}\nTono: {spec.tone}\nMetodología: {spec.methodology}\nNotas: {spec.notes}\n"
         f"(Lo que está en la especificación o en la metodología NO cuenta como dato inventado.)\n\n"
         f"CASO:\n{case.input}\nContexto: {json.dumps(case.context, ensure_ascii=False)}\n"
         f"Respuestas simuladas de tools: {json.dumps(case.tool_responses, ensure_ascii=False)}\n\n"

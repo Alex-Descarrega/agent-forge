@@ -672,7 +672,7 @@
         "value": {
           "tool": "guardar_prp",
           "field": "nombre_archivo",
-          "value": "221022_TRILOGI Propuesta Proyecto eCommerce Prestashop_"
+          "value": "221026_TRILOGI Propuesta Proyecto eCommerce Prestashop_"
         },
         "weight": 1.0,
         "critical": false,
@@ -982,22 +982,11 @@
         "value": {
           "tool": "guardar_prp",
           "field": "nombre_archivo",
-          "value": "221022_TRILOGI Propuesta Proyecto eCommerce Prestashop_"
+          "value": "221026_TRILOGI Propuesta Proyecto eCommerce Prestashop_"
         },
         "weight": 1.0,
         "critical": false,
         "description": "patrón de nombre"
-      },
-      {
-        "type": "tool_input_not_contains",
-        "value": {
-          "tool": "guardar_prp",
-          "field": "contenido",
-          "value": "Francia"
-        },
-        "weight": 1.5,
-        "critical": false,
-        "description": "aplica el cambio: sin Francia"
       },
       {
         "type": "tool_input_contains",
@@ -1009,6 +998,16 @@
         "weight": 0.5,
         "critical": false,
         "description": "mantiene integración Holded"
+      },
+      {
+        "type": "regex_absent",
+        "value": {
+          "text": "(envíos?|entregas?|ventas?)\\s+(a|en)\\s+(España y Francia|Francia)",
+          "scope": "tools"
+        },
+        "weight": 2.0,
+        "critical": true,
+        "description": "ya no se vende/envía a Francia (mencionarla en el changelog como eliminada sí vale)"
       }
     ],
     "rubric": "Debe guardar con _v2 y reflejar el cambio indicado por el comercial (solo España). Si guardar_prp fallara, reintentar con otro número de versión, nunca sobrescribir. El resumen menciona qué cambió respecto a v1.",
