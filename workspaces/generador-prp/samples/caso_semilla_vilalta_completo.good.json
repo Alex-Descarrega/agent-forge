@@ -1,0 +1,304 @@
+{
+ "id": "vilalta_completo",
+ "input": "Genera el PRP para Cerámicas Vilalta. Tienes sus emails y la nota de la reunión del martes. Variante completa, autor Marc Puig.",
+ "context": {
+  "fecha_hoy": "22/10/26",
+  "comercial": "Marc Puig"
+ },
+ "tool_responses": {
+  "listar_fuentes": [
+   {
+    "nombre": "email_01_presentacion.txt",
+    "fecha": "2026-10-07"
+   },
+   {
+    "nombre": "email_02_plazos.txt",
+    "fecha": "2026-10-14"
+   },
+   {
+    "nombre": "nota_reunion_15oct.md",
+    "fecha": "2026-10-15"
+   }
+  ],
+  "leer_fuente": [
+   {
+    "match": {
+     "nombre": "email_01_presentacion.txt"
+    },
+    "response": {
+     "nombre": "email_01_presentacion.txt",
+     "fecha": "2026-10-07",
+     "texto": "Hola Marc, soy Núria Vilalta, de Cerámicas Vilalta (Breda, Girona). Somos fabricantes de cerámica artesanal desde 1962, vendemos sobre todo a particulares en ferias y en nuestra tienda, y queremos abrir tienda online B2C. Ahora mismo tenemos una web antigua en Wix que no vende. Queremos una tienda en Prestashop, que es lo que nos han recomendado, con unos 400 productos. Necesitamos integrarla con nuestro programa de facturación, que es Holded. ¿Podríais prepararnos una propuesta?"
+    }
+   },
+   {
+    "match": {
+     "nombre": "email_02_plazos.txt"
+    },
+    "response": {
+     "nombre": "email_02_plazos.txt",
+     "fecha": "2026-10-14",
+     "texto": "Marc, para que lo tengáis en cuenta: nos gustaría tener la tienda funcionando antes de la campaña de Navidad del año que viene, o sea noviembre 2027. No hay prisa inmediata. Los textos y fotos de producto los tenemos nosotros en un Excel y en Dropbox. Un saludo, Núria."
+    }
+   },
+   {
+    "match": {
+     "nombre": "nota_reunion_15oct.md"
+    },
+    "response": {
+     "nombre": "nota_reunion_15oct.md",
+     "fecha": "2026-10-15",
+     "texto": "Reunión con Núria y su hijo Pol (lleva el marketing). Confirman Prestashop. Quieren envíos a España y Francia. Pagos con tarjeta y Bizum. Pol quiere poder hacer newsletters. Les he explicado la consultoría de 3 semanas y el método. Preguntan si podemos migrar las 120 URL que tienen posicionadas en Google: sí, lo incluimos como migración SEO. Carga de catálogo: la hacen ellos con nuestra plantilla. Duración estimada que doy yo: 4-5 meses de proyecto. Arranque en 3-4 semanas tras firma."
+    }
+   },
+   {
+    "match": {},
+    "response": {
+     "error": "fuente no encontrada"
+    },
+    "is_error": true
+   }
+  ],
+  "guardar_prp": {
+   "ok": true,
+   "ruta": "/prp/guardado.md"
+  }
+ },
+ "checks": [
+  {
+   "type": "tool_called_before",
+   "value": [
+    "listar_fuentes",
+    "leer_fuente"
+   ],
+   "weight": 0.5,
+   "critical": false,
+   "description": "lista antes de leer"
+  },
+  {
+   "type": "tool_call_count",
+   "value": {
+    "tool": "leer_fuente",
+    "min": 3
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "lee las 3 fuentes"
+  },
+  {
+   "type": "tool_called",
+   "value": "guardar_prp",
+   "weight": 2.0,
+   "critical": false,
+   "description": "con datos suficientes, guarda el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*(Lista de )?Huecos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección ## Huecos al final"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "nombre_archivo",
+    "value": "Prestashop"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "nombre de archivo contiene 'Prestashop'"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "nombre_archivo",
+    "value": "Vilalta"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "nombre de archivo contiene 'Vilalta'"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "Holded"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "integración Holded en el PRP"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "120"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "120 URL de migración SEO"
+  },
+  {
+   "type": "tool_input_not_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "Abacus"
+   },
+   "weight": 1.0,
+   "critical": true,
+   "description": "sin arrastrar clientes de las muestras"
+  },
+  {
+   "type": "tool_input_not_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "COPIA AQUI"
+   },
+   "weight": 1.0,
+   "critical": true,
+   "description": "sin texto de plantilla sin resolver"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "garantía"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "Miscelánea reproducida (cláusula de garantía)"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "1235"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "importe fijo Cookieless de la skill"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "Cerámicas Vilalta"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "nombre del cliente en el documento"
+  },
+  {
+   "type": "regex_absent",
+   "value": {
+    "text": "\\[FALTA:[^\\]]*(Transparencia|Método|Miscelánea|forma de pago)",
+    "scope": "tools"
+   },
+   "weight": 2.0,
+   "critical": false,
+   "description": "NO marca como FALTA las partes fijas que están en la skill"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Situación actual",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Situación actual presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Retos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Retos presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Cómo lo abordamos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Cómo lo abordamos presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Objetivos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Objetivos presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.01",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.01 presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.04",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.04 presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.07",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.07 presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.08",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.08 presente en el PRP"
+  }
+ ],
+ "rubric": "¿Es un PRP de trilogi reconocible (secciones, texto fijo con el nombre del cliente, Miscelánea)? ¿Todo lo concreto (Prestashop, B2C, Holded, 120 URL, 4-5 meses, 3-4 semanas, Francia, Bizum, newsletters) sale de las fuentes? ¿Los precios del presupuesto son los fijos de la skill o [FALTA]? Penaliza fuerte cualquier cifra o integración que no esté en las fuentes.",
+ "tags": [
+  "generate",
+  "prestashop",
+  "b2c"
+ ],
+ "split": "fit",
+ "source": "manual",
+ "meta": {}
+}

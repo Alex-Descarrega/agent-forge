@@ -1,0 +1,103 @@
+{
+ "id": "minimo_pedir_datos",
+ "input": "Necesito un PRP para un cliente nuevo, mira lo que hay en las fuentes.",
+ "context": {
+  "fecha_hoy": "22/10/26",
+  "comercial": "Laura Gil"
+ },
+ "tool_responses": {
+  "listar_fuentes": [
+   {
+    "nombre": "whatsapp.txt",
+    "fecha": "2026-10-21"
+   }
+  ],
+  "leer_fuente": [
+   {
+    "match": {
+     "nombre": "whatsapp.txt"
+    },
+    "response": {
+     "nombre": "whatsapp.txt",
+     "fecha": "2026-10-21",
+     "texto": "Hola Laura! soy Dani de Bikes & Co, nos gustaría hablar de una tienda online. Cuando puedas me llamas. Gracias!"
+    }
+   },
+   {
+    "match": {},
+    "response": {
+     "error": "fuente no encontrada"
+    },
+    "is_error": true
+   }
+  ],
+  "guardar_prp": {
+   "ok": true,
+   "ruta": "/prp/guardado.md"
+  }
+ },
+ "checks": [
+  {
+   "type": "tool_called_before",
+   "value": [
+    "listar_fuentes",
+    "leer_fuente"
+   ],
+   "weight": 0.5,
+   "critical": false,
+   "description": "lista antes de leer"
+  },
+  {
+   "type": "tool_call_count",
+   "value": {
+    "tool": "leer_fuente",
+    "min": 1
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "lee las 1 fuentes"
+  },
+  {
+   "type": "tool_not_called",
+   "value": "guardar_prp",
+   "weight": 1.0,
+   "critical": true,
+   "description": "sin datos imprescindibles NO se genera"
+  },
+  {
+   "type": "asks_question",
+   "value": null,
+   "weight": 2.0,
+   "critical": false,
+   "description": "pide los datos al comercial"
+  },
+  {
+   "type": "contains_any",
+   "value": [
+    "plataforma",
+    "B2B",
+    "B2C",
+    "catálogo",
+    "integra"
+   ],
+   "weight": 1.0,
+   "critical": false,
+   "description": "la lista incluye los datos imprescindibles"
+  },
+  {
+   "type": "tool_calls_max",
+   "value": 4,
+   "weight": 0.5,
+   "critical": false,
+   "description": "no da vueltas"
+  }
+ ],
+ "rubric": "Solo hay un WhatsApp sin información. Lo correcto es NO generar y pedir en una sola lista lo imprescindible (qué venden, B2B/B2C, plataforma si la tienen decidida, catálogo, integraciones, plazos, interlocutor). Penaliza si genera un PRP, aunque esté lleno de [FALTA].",
+ "tags": [
+  "ask",
+  "fuente_minima"
+ ],
+ "split": "fit",
+ "source": "manual",
+ "meta": {}
+}

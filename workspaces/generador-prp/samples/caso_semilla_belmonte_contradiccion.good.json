@@ -1,0 +1,258 @@
+{
+ "id": "belmonte_contradiccion",
+ "input": "Hazme el PRP de Belmonte Óptica, Shopify B2C. Autor: yo (Laura Gil).",
+ "context": {
+  "fecha_hoy": "22/10/26",
+  "comercial": "Laura Gil"
+ },
+ "tool_responses": {
+  "listar_fuentes": [
+   {
+    "nombre": "email_01.txt",
+    "fecha": "2026-09-30"
+   },
+   {
+    "nombre": "email_02.txt",
+    "fecha": "2026-10-12"
+   },
+   {
+    "nombre": "nota_llamada.md",
+    "fecha": "2026-10-13"
+   }
+  ],
+  "leer_fuente": [
+   {
+    "match": {
+     "nombre": "email_01.txt"
+    },
+    "response": {
+     "nombre": "email_01.txt",
+     "fecha": "2026-09-30",
+     "texto": "Hola Laura, Belmonte Óptica, 4 tiendas en Zaragoza. Queremos tienda online en Shopify para vender gafas de sol y lentillas (B2C). Catálogo: unas 900 referencias. Necesitamos que se integre con nuestro TPV, que es Cegid. Nos gustaría salir en marzo de 2027. Gracias, Jorge Belmonte."
+    }
+   },
+   {
+    "match": {
+     "nombre": "email_02.txt"
+    },
+    "response": {
+     "nombre": "email_02.txt",
+     "fecha": "2026-10-12",
+     "texto": "Laura, hablado con mi socio: lo ideal sería lanzar en enero de 2027 para aprovechar las rebajas. ¿Es viable? Jorge."
+    }
+   },
+   {
+    "match": {
+     "nombre": "nota_llamada.md"
+    },
+    "response": {
+     "nombre": "nota_llamada.md",
+     "fecha": "2026-10-13",
+     "texto": "Llamada con Jorge. Confirma Shopify y Cegid. Quiere también Click & Collect en las 4 tiendas. Migración SEO: tienen unas 60 URL con tráfico. Carga de catálogo la hacemos nosotros (trilogi) desde su Excel. No he dado duración ni arranque todavía."
+    }
+   },
+   {
+    "match": {},
+    "response": {
+     "error": "fuente no encontrada"
+    },
+    "is_error": true
+   }
+  ],
+  "guardar_prp": {
+   "ok": true,
+   "ruta": "/prp/guardado.md"
+  }
+ },
+ "checks": [
+  {
+   "type": "tool_call_count",
+   "value": {
+    "tool": "leer_fuente",
+    "min": 3
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "lee las 3 fuentes"
+  },
+  {
+   "type": "tool_called",
+   "value": "guardar_prp",
+   "weight": 2.0,
+   "critical": false,
+   "description": "con datos suficientes, guarda el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*(Lista de )?Huecos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección ## Huecos al final"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "nombre_archivo",
+    "value": "Shopify"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "nombre de archivo contiene 'Shopify'"
+  },
+  {
+   "type": "contains_any",
+   "value": [
+    "enero",
+    "marzo"
+   ],
+   "weight": 1.0,
+   "critical": false,
+   "description": "menciona los plazos en conflicto"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "\\[FALTA:[^\\]]*(plazo|fecha|go.?live|lanzamiento)",
+    "scope": "tools"
+   },
+   "weight": 2.0,
+   "critical": true,
+   "description": "la fecha objetivo queda como FALTA por contradicción"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "\\[FALTA:[^\\]]*(duraci|meses|arranque|semanas)",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "duración y arranque no los dio el comercial: FALTA"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "Cegid"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "integración Cegid"
+  },
+  {
+   "type": "tool_input_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "60"
+   },
+   "weight": 0.5,
+   "critical": false,
+   "description": "60 URL"
+  },
+  {
+   "type": "tool_input_not_contains",
+   "value": {
+    "tool": "guardar_prp",
+    "field": "contenido",
+    "value": "4-5 meses"
+   },
+   "weight": 1.0,
+   "critical": true,
+   "description": "no inventa duración"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Situación actual",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Situación actual presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Retos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Retos presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Cómo lo abordamos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Cómo lo abordamos presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*Objetivos",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección Objetivos presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.01",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.01 presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.04",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.04 presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.07",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.07 presente en el PRP"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "(?m)^##\\s*\\.08",
+    "scope": "tools"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "sección \\.08 presente en el PRP"
+  }
+ ],
+ "rubric": "Hay dos fechas objetivo (marzo vs enero 2027). Lo correcto: no elegir, señalar la contradicción citando ambos emails, dejar [FALTA] en la fecha y preguntar al comercial. Duración y arranque no constan: [FALTA]. Click & Collect, Cegid, 60 URL, carga por trilogi: deben estar. Penaliza si fija una de las dos fechas como la buena.",
+ "tags": [
+  "generate",
+  "contradiccion"
+ ],
+ "split": "fit",
+ "source": "manual",
+ "meta": {}
+}

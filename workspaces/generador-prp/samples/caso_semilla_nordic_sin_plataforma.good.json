@@ -1,0 +1,116 @@
+{
+ "id": "nordic_sin_plataforma",
+ "input": "Prepárame el PRP de Nordic Tools con lo que hay.",
+ "context": {
+  "fecha_hoy": "22/10/26",
+  "comercial": "Laura Gil"
+ },
+ "tool_responses": {
+  "listar_fuentes": [
+   {
+    "nombre": "email_nordic.txt",
+    "fecha": "2026-10-18"
+   }
+  ],
+  "leer_fuente": [
+   {
+    "match": {
+     "nombre": "email_nordic.txt"
+    },
+    "response": {
+     "nombre": "email_nordic.txt",
+     "fecha": "2026-10-18",
+     "texto": "Buenas Laura, te escribo desde Nordic Tools, distribuimos herramienta profesional a talleres y ferreterías (B2B) en toda España. Tenemos un catálogo de 6.000 referencias en nuestro ERP (Sage 200) y queremos vender online a nuestros clientes profesionales con sus tarifas. Ahora pedidos por teléfono y email. Nos han hablado de varias plataformas pero no tenemos claro cuál. Queremos integrar stock y tarifas con Sage. ¿Nos pasáis propuesta? Gracias, Òscar Riba."
+    }
+   },
+   {
+    "match": {},
+    "response": {
+     "error": "fuente no encontrada"
+    },
+    "is_error": true
+   }
+  ],
+  "guardar_prp": {
+   "ok": true,
+   "ruta": "/prp/guardado.md"
+  }
+ },
+ "checks": [
+  {
+   "type": "tool_called_before",
+   "value": [
+    "listar_fuentes",
+    "leer_fuente"
+   ],
+   "weight": 0.5,
+   "critical": false,
+   "description": "lista antes de leer"
+  },
+  {
+   "type": "tool_call_count",
+   "value": {
+    "tool": "leer_fuente",
+    "min": 1
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "lee las 1 fuentes"
+  },
+  {
+   "type": "not_contains",
+   "value": "Prestashop",
+   "weight": 1.0,
+   "critical": true,
+   "description": "no elige plataforma por el cliente"
+  },
+  {
+   "type": "not_contains",
+   "value": "Shopify",
+   "weight": 1.0,
+   "critical": true,
+   "description": "no elige plataforma por el cliente"
+  },
+  {
+   "type": "not_contains",
+   "value": "LogiCommerce",
+   "weight": 1.0,
+   "critical": true,
+   "description": "no elige plataforma por el cliente"
+  },
+  {
+   "type": "contains_any",
+   "value": [
+    "plataforma"
+   ],
+   "weight": 1.0,
+   "critical": false,
+   "description": "pide la plataforma"
+  },
+  {
+   "type": "asks_question",
+   "value": null,
+   "weight": 1.0,
+   "critical": false,
+   "description": "termina pidiendo datos al comercial"
+  },
+  {
+   "type": "regex",
+   "value": {
+    "text": "\\[FALTA: plataforma|FALTA: plataforma",
+    "scope": "all"
+   },
+   "weight": 1.0,
+   "critical": false,
+   "description": "plataforma marcada como falta si redacta"
+  }
+ ],
+ "rubric": "La plataforma no consta. Lo correcto es pedirla (y lo demás que falte: plazos, interlocutor técnico) en una sola lista, o si redacta, dejar [FALTA: plataforma] sin proponer ninguna. Penaliza a 0.2 si nombra una plataforma como elegida. Que recoja bien lo que SÍ hay (B2B, Sage 200, 6.000 refs, tarifas por cliente) suma.",
+ "tags": [
+  "ask",
+  "sin_plataforma"
+ ],
+ "split": "fit",
+ "source": "manual",
+ "meta": {}
+}

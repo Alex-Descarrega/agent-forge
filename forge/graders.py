@@ -18,17 +18,24 @@ def _tool_names(t: Trace) -> list[str]:
     return [c.name for c in t.tool_calls]
 
 
+def _tool_text(t: Trace) -> str:
+    """Texto REAL que el agente escribió en los inputs de tools: los valores string tal cual
+    (con sus saltos de línea), no el JSON escapado, para que regex multilínea funcionen."""
+    parts = []
+    for c in t.tool_calls:
+        for k, v in c.input.items():
+            parts.append(v if isinstance(v, str) else json.dumps(v, ensure_ascii=False))
+    return "\n".join(parts)
+
+
 def _all_text(t: Trace) -> str:
     """Respuesta final + todo texto que el agente escribió en inputs de tools.
 
-    Importante: en agentes que actúan vía tools (responder, enviar_email...), el texto que ve
-    el cliente está en el input de la tool, no en la respuesta final. Los checks de texto
-    miran ambos sitios por defecto; `{"text": "...", "scope": "final"}` restringe a la final.
+    Importante: en agentes que actúan vía tools (responder, enviar_email, guardar_prp...), el texto
+    que importa está en el input de la tool, no en la respuesta final. Los checks de texto miran
+    ambos sitios por defecto; `{"text": "...", "scope": "final"|"tools"}` restringe.
     """
-    parts = [t.final_text]
-    for c in t.tool_calls:
-        parts.append(json.dumps(c.input, ensure_ascii=False))
-    return "\n".join(parts)
+    return t.final_text + "\n" + _tool_text(t)
 
 
 def _text_and_value(t: Trace, v: Any) -> tuple[str, Any]:
@@ -39,7 +46,7 @@ def _text_and_value(t: Trace, v: Any) -> tuple[str, Any]:
         if scope == "final":
             return t.final_text, val
         if scope == "tools":
-            return "\n".join(json.dumps(c.input, ensure_ascii=False) for c in t.tool_calls), val
+            return _tool_text(t), val
         return _all_text(t), val
     return _all_text(t), v
 
@@ -67,6 +74,12 @@ def _c_regex(t: Trace, v: Any) -> tuple[bool, str]:
     text, v = _text_and_value(t, v)
     ok = re.search(str(v), text, re.I) is not None
     return ok, "" if ok else f"regex {v} no coincide"
+
+
+def _c_regex_absent(t: Trace, v: Any) -> tuple[bool, str]:
+    text, v = _text_and_value(t, v)
+    m = re.search(str(v), text, re.I)
+    return m is None, "" if m is None else f"regex {v} aparece y no debería: '{m.group(0)[:60]}'"
 
 
 def _c_tool_called(t: Trace, v: Any) -> tuple[bool, str]:
@@ -165,11 +178,19 @@ def _c_json_has_keys(t: Trace, v: Any) -> tuple[bool, str]:
 
 
 def _c_asks_question(t: Trace, v: Any) -> tuple[bool, str]:
-    """La respuesta pide información: su última línea con contenido contiene '?' (o '¿')."""
-    lines = [l.strip(" \t*_)>-") for l in t.final_text.strip().splitlines() if l.strip(" \t*_)>-")]
-    last = lines[-1] if lines else ""
-    ok = "?" in last or "¿" in last
-    return ok, "" if ok else "la última línea de la respuesta no es una pregunta"
+    """La respuesta pide información al humano: hay una pregunta ('?'/'¿') en el último tercio,
+    o una lista de peticiones (≥2 viñetas) precedida de 'necesito', 'falta', 'confirma', 'dime', 'indica'."""
+    text = t.final_text.strip()
+    if not text:
+        return False, "respuesta vacía"
+    tail = text[-max(300, len(text) // 3):]
+    if "?" in tail or "¿" in tail:
+        return True, ""
+    low = text.lower()
+    asks_words = any(w in low for w in ("necesito", "me falta", "falta", "confirm", "dime", "indíca", "indica", "pásame", "pasame", "¿me", "envíame"))
+    bullets = sum(1 for l in text.splitlines() if l.strip().startswith(("-", "*", "•", "1.", "2.", "3.")))
+    ok = asks_words and bullets >= 2
+    return ok, "" if ok else "no hay pregunta ni lista de peticiones al final de la respuesta"
 
 
 CHECKS: dict[str, Callable[[Trace, Any], tuple[bool, str]]] = {
@@ -177,6 +198,7 @@ CHECKS: dict[str, Callable[[Trace, Any], tuple[bool, str]]] = {
     "contains_any": _c_contains_any,
     "not_contains": _c_not_contains,
     "regex": _c_regex,
+    "regex_absent": _c_regex_absent,
     "tool_called": _c_tool_called,
     "tool_not_called": _c_tool_not_called,
     "tool_called_before": _c_tool_called_before,

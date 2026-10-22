@@ -18,6 +18,7 @@ No ves ni escribes el system prompt del agente. Esto es deliberado: los tests ti
 | `contains_any` | [textos] | aparece al menos uno |
 | `not_contains` | texto | no aparece en ningún sitio |
 | `regex` | patrón | el patrón aparece (misma regla de ámbito) |
+| `regex_absent` | patrón | el patrón NO aparece |
 | `tool_called` | nombre | se llamó esa herramienta al menos una vez |
 | `tool_not_called` | nombre | nunca se llamó |
 | `tool_called_before` | [a, b] | la primera llamada a `a` ocurre antes que la primera a `b` |
